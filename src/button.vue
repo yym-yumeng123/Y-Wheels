@@ -1,9 +1,7 @@
 <template>
     <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
         <!-- v-if=icon : 是否出现icon -->
-        <svg class="icon" v-if="icon">
-            <use :xlink:href="`#i-${icon}`"></use>
-        </svg>
+        <g-icon v-if="icon" :name="icon"></g-icon>
         <div class="content">
             <slot></slot>  
         </div>
@@ -58,14 +56,18 @@
 
 <script>
 export default {
-    props: ['icon', 'iconPosition']
-    // props: {
-    //     icon: {},
-    //     iconPosition: {
-    //         type: String,
-    //         default: 'left'
-    //     }
-    // }
+    // props: ['icon', 'iconPosition']
+    props: {
+        icon: String,
+        iconPosition: {
+            type: String,
+            default: 'left',
+            // 防止写除了left 和 right, 属性的检查器
+            validator(value) {
+                return value === 'left' || value === 'right'
+            }
+        }
+    }
 }
 </script>
 
