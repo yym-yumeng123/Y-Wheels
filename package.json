@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/yym-yumeng123/Y-Wheels/issues"
   },
-  "homepage": "https://github.com/yym-yumeng123/Y-Wheels#readme"
+  "homepage": "https://github.com/yym-yumeng123/Y-Wheels#readme",
+  "dependencies": {
+    "vue": "^2.5.17"
+  }
 }
