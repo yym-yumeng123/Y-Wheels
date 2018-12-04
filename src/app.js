@@ -90,6 +90,7 @@ chai.use(spies)
 }
 // 测试 click 事件
 {
+    // 函数的 Mock
     const Constructor = Vue.extend(Button)
     const vm = new Constructor({
         propsData: {
