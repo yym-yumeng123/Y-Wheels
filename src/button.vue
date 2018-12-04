@@ -1,7 +1,7 @@
 <template>
     <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
         <!-- v-if=icon : 是否出现icon -->
-        <g-icon v-if="icon" :name="icon"></g-icon>
+        <g-icon v-if="icon" :name="icon" class="icon"></g-icon>
         <div class="content">
             <slot></slot>  
         </div>
