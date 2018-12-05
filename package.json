@@ -1,7 +1,7 @@
 {
   "name": "vue-element-ym",
   "version": "0.0.2",
-  "description": "这是一个UI框架",
+  "description": "这是一个Vue-UI框架",
   "main": "dist/index.js",
   "scripts": {
     "dev-test": "parcel watch test/* --no-cache & karma start",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yym-yumeng123/Y-Wheels.git"
+    "url": "https://github.com/yym-yumeng123/Y-Wheels.git"
   },
   "keywords": [
     "vue",
