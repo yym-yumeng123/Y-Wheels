@@ -1,6 +1,6 @@
 <template>
     <!-- 触发click事件 -->
-    <button class="g-button" :class="{[`icon-${iconPosition}`]: true}"
+    <button class="g-button yym" :class="{[`icon-${iconPosition}`]: true}"
         @click="$emit('click')"
     >
         <!-- v-if=icon : 是否出现icon -->
