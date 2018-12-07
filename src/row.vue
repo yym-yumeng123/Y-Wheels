@@ -1,5 +1,5 @@
 <template>
-    <div class="row" :style="{marginLeft: -gutter/2 + 'px', marginRight: -gutter/2 + 'px'}">
+    <div class="row" :style="rowStyle">
         <slot></slot>
     </div>
 </template>
@@ -12,18 +12,19 @@ export default {
             type: [Number, String]
         }
     },
-    created() {
-        console.log('row created')
+    computed: {
+        rowStyle () {
+            return {
+                marginLeft: this.gutter/2 + 'px',
+                marginRight: this.gutter/2 + 'px'
+            }
+        }
     },
     mounted() {
-        console.log('row mounted')
-        console.log(this.$children)
         this.$children.forEach((vm) => {
             vm.gutter = this.gutter
         })
     }
-    // var div = document.createElement('div')  created 过程 创建这个组件但并没有放到页面中
-    // document.body.appendChild(div)           mounted 过程 把它放到页面中
 }
 </script>
 
