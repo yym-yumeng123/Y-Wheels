@@ -46,6 +46,10 @@
         </div>
 
         <div class="box">
+            <g-input value="change事件" @change="inputChange"></g-input>
+        </div>
+
+        <div class="box">
             <g-button icon="settings" icon-position="right" :loading="loading1" @click="loading1 = !loading1">
                 点击切换loading
             </g-button>
