@@ -40,8 +40,9 @@ export default {
 
 <style lang="scss" scoped>
     .col {
-        height: 100px;
+        height: 50px;
         width: 50%;
+        background: #3D8FEE;
         // for循环width
         $class-prefix: col-;
         @for $n from 1 through 24 {
