@@ -68,7 +68,7 @@ export default {
                 outline: none;
                 box-shadow: inset 0 1px 3px $box-shadow-color;
             }
-            &[disabled],&[readonly] {
+            &[disabled], &[readonly] {
                 border-color: #ccc;
                 color: #ccc;
                 cursor: not-allowed;
