@@ -15,7 +15,7 @@
     return valid
   }
   export default {
-    name: 'GuluCol',
+    name: 'ElementCol',
     props: {
       span: {
         type: [Number, String]
