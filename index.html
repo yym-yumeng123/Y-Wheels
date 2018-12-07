@@ -28,30 +28,43 @@
             margin: 20px;
         }
     </style>
+    <style>
+        .box {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <g-button icon="settings" icon-position="right" :loading="loading1" @click="loading1 = !loading1">
-            按钮
-        </g-button>
-        <g-button :loading="true">
-            按钮
-        </g-button>
-        <g-button icon="right" icon-position="right" :loading="loading2"  @click="loading2 = !loading2">
-            往右
-        </g-button>
-        <g-button icon="download">
-            下载
-        </g-button>
-        <g-icon name="thumbs-up"></g-icon>
+        <div class="box">
+            <g-input value="readonly只读" readonly></g-input>
+            <g-input value="张三" diasbled></g-input>
+            <g-input></g-input>
+        </div>
+        <div class="box">
+            <g-input error="姓名不能少于两个字" value="往"></g-input>
+        </div>
 
-        <g-button-group>
-            <g-button icon="left">上一页</g-button>
-            <g-button>更多</g-button>
-            <g-button icon="right" icon-position="right">下一页</g-button>
-        </g-button-group>
-
-        <div id="test"></div>
+        <div class="box">
+            <g-button icon="settings" icon-position="right" :loading="loading1" @click="loading1 = !loading1">
+                点击切换loading
+            </g-button>
+            <g-button :loading="true">
+                Loading
+            </g-button>
+            <g-button icon="right" icon-position="right" :loading="loading2"  @click="loading2 = !loading2">
+                往右
+            </g-button>
+            <g-button icon="download">
+                下载
+            </g-button>
+            <g-icon name="thumbs-up"></g-icon>
+            <g-button-group>
+                <g-button icon="left">上一页</g-button>
+                <g-button>更多</g-button>
+                <g-button icon="right" icon-position="right">下一页</g-button>
+            </g-button-group>
+        </div>
     </div>
 
     <script src="./src/app.js"></script>

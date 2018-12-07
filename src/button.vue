@@ -68,6 +68,7 @@
 <script>
 import Icon from './icon'
 export default {
+    name: 'ElementButton',
     components: {
         'g-icon': Icon
     },
