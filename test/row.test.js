@@ -7,7 +7,6 @@ Vue.config.productionTip = false
 Vue.config.devtools = false
 
 describe('Row', () => {
-
   it('存在.', () => {
     expect(Row).to.exist
   })
