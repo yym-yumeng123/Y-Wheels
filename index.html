@@ -44,9 +44,13 @@
         <div class="box">
             <g-input error="姓名不能少于两个字" value="往"></g-input>
         </div>
-
         <div class="box">
             <g-input value="change事件" @change="inputChange"></g-input>
+        </div>
+        <div class="box">
+            <g-input value="hi" v-model="message"></g-input>
+            <p>{{ message }}</p>
+            <g-button @click="message += 1">点击 +1</g-button>
         </div>
 
         <div class="box">
