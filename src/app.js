@@ -14,6 +14,9 @@ import Sider from './sider'
 import Content from './content'
 import Footer from './footer'
 
+import Toast from './toast'
+import plugin from './plugin'
+
 
 
 Vue.component('g-button', Button)
@@ -30,6 +33,8 @@ Vue.component('g-footer', Footer)
 Vue.component('g-sider', Sider)
 Vue.component('g-content', Content)
 
+Vue.component('g-toast', Toast)
+Vue.use(plugin)
 new Vue({
     el: '#app',
     data: {
@@ -37,9 +42,15 @@ new Vue({
         loading2: false,
         message: '双向绑定'
     },
+    created() {
+        
+    },
     methods: {
         inputChange(e) {
             console.log(e)
+        },
+        showToast(message) {
+            this.$toast('你好啊')
         }
     }
 })

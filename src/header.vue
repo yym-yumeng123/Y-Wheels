@@ -5,5 +5,4 @@
 </template>
 
 <style lang="scss" scoped>
-    .header {}
 </style>
