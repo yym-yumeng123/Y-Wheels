@@ -15,8 +15,6 @@ export default {
 		}
 	},
 	mounted () {
-		console.log('mounted')
-		console.log(this.$children)
 		this.$children.forEach((vm) => {
 			if(vm.$options.name === 'ElementSider') {
 				this.layoutClass.hasSider = true
@@ -32,7 +30,6 @@ export default {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
-	border: 1px solid red;
 	&.hasSider {
 		flex-direction: row;
 	}
