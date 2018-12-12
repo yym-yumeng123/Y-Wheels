@@ -49,9 +49,18 @@ new Vue({
         inputChange(e) {
             console.log(e)
         },
-        showToast(message) {
+        showToast1() {
+            this.showToast('top')
+        },
+        showToast2() {
+            this.showToast('middle')
+        },
+        showToast3() {
+            this.showToast('bottom')
+        },
+        showToast(position) {
             this.$toast(`很多文字${parseInt(Math.random()*100)}`, {
-                // position: 'bottom',
+                position,
                 enableHtml: false,
                 autoClose: false,
                 autoCloseDelay: 3,
