@@ -50,7 +50,16 @@ new Vue({
             console.log(e)
         },
         showToast(message) {
-            this.$toast('你好啊')
+            this.$toast('你好啊', {
+                closeButton: {
+                    text: '知道了',
+                    callback (toast) {
+                        toast.log()
+                        console.log(toast)
+                        console.log('用户知道了')
+                    }
+                }
+            })
         }
     }
 })
