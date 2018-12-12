@@ -52,9 +52,7 @@ Vue.component('g-tabs-pane', TabsPane)
 new Vue({
     el: '#app',
     data: {
-        loading1: true,
-        loading2: false,
-        message: '双向绑定'
+        selectedTab: 'sports'
     },
     created() {
         

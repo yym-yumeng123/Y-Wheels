@@ -30,10 +30,15 @@
     <button @click="showToast3">bottom</button>
 
 
-    <g-tabs selected="sports">
+    <g-tabs :selected.sync="selectedTab">
       <g-tabs-head>
-        <g-tabs-item name="women">美女</g-tabs-item>
-        <g-tabs-item name="finance">财经</g-tabs-item>
+        <template slot="actions">
+          <button>设置</button>
+        </template>
+        <g-tabs-item name="women">
+          <g-icon name="settings"></g-icon>美女
+        </g-tabs-item>
+        <g-tabs-item name="finance" disabled>财经</g-tabs-item>
         <g-tabs-item name= "sports">体育</g-tabs-item>
       </g-tabs-head>
       <g-tabs-body>

@@ -7,6 +7,12 @@
 <script>
 export default {
     name: 'ElementTabItem',
+    props: {
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 
