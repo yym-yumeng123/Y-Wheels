@@ -9,9 +9,7 @@ export default {
         Vue.prototype.$toast = function (message, toastOption) {
             let Constructor = Vue.extend(Toast)
             let toast = new Constructor({
-                propsData: {
-                    closeButton: toastOption.closeButton
-                }
+                propsData: toastOption
             })
             toast.$slots.default = [message]
             toast.$mount()
