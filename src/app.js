@@ -50,7 +50,7 @@ new Vue({
             console.log(e)
         },
         showToast(message) {
-            this.$toast('很多文字', {
+            this.$toast(`很多文字${parseInt(Math.random()*100)}`, {
                 position: 'bottom',
                 enableHtml: false,
                 autoClose: false,
