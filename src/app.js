@@ -51,7 +51,17 @@ new Vue({
         },
         showToast(message) {
             this.$toast('很多文字', {
-                enableHtml: false
+                position: 'bottom',
+                enableHtml: false,
+                autoClose: false,
+                autoCloseDelay: 3,
+                closeButton: {
+                    text: '已充值',
+                    callback() {
+                        console.log('已经充值')
+                    }
+
+                }
             })
         }
     }
