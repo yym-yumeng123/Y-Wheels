@@ -62,8 +62,7 @@ new Vue({
             this.$toast(`很多文字${parseInt(Math.random()*100)}`, {
                 position,
                 enableHtml: false,
-                autoClose: false,
-                autoCloseDelay: 3,
+                autoClose: 3,
                 closeButton: {
                     text: '已充值',
                     callback() {

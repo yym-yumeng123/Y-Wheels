@@ -19,13 +19,16 @@ export default {
     name: 'ElementToast',
     props: {
         autoClose: {
-            type: Boolean,
-            default: true
+            type: [Boolean, Number],
+            default: 5,
+            validator(value) {
+                return value === false || typeof value === 'number'
+            }
         },
-        autoCloseDelay: {
-            type: Number,
-            default: 50
-        },
+        // autoCloseDelay: {
+        //     type: Number,
+        //     default: 5
+        // },
         closeButton: {
             type: Object,
             // 对象是引用的, return 一个对象
@@ -70,7 +73,7 @@ export default {
             if(this.autoClose) {
                 setTimeout(() => {
                     this.close()
-                }, this.autoCloseDelay * 1000)
+                }, this.autoClose * 1000)
             }
         },
         close () {

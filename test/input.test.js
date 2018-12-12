@@ -1,7 +1,6 @@
 const expect = chai.expect;
 import Vue from 'vue'
 import Input from '../src/input'
-import { eventNames } from 'cluster';
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
@@ -81,7 +80,6 @@ describe('Input', () => {
                 let inputElement = vm.$el.querySelector('input')
                 inputElement.dispatchEvent(event)
                 expect(callback).to.have.been.called.calledWith('hi') 
-                console.log(eventNames)
             })
 
         })
