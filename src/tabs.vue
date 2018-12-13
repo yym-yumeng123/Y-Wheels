@@ -32,7 +32,9 @@ export default {
         }
     },
     mounted () {
-        console.log(this.$children)
+        if(this.$children.length === 0) {
+            throw new Error('tabs的子组件应该是tabs-head 和 tabs-body, 但你没有写子组件')
+        }
         this.$children.forEach((vm) => {
             if(vm.$options.name === 'ElementTabsHead') {
                 vm.$children.forEach((childVm) => {
@@ -48,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .tabs{}
+    // .tabs{}
 </style>
 
 

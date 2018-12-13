@@ -51,7 +51,6 @@ describe('Toast', () => {
             vm.$slots.default = ['<strong id="test">hi</strong>']
             vm.$mount()
             let strong = vm.$el.querySelector('#test')
-            console.log(vm.$el.outerHTML)
             // expect(strong.textContent.trim()).to.eq('hi')
             expect(strong).to.exist
         })
