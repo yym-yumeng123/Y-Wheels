@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'ElementTabPane',
+    name: 'ElementTabsPane',
     props: {
         name: {
             type: String | Number,
@@ -43,7 +43,7 @@ export default {
 <style lang="scss" scoped>
     .tabs-pane{
         &.active {
-            background: green;
+            // background: green;
         }
     }
 </style>
