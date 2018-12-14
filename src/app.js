@@ -60,6 +60,9 @@ new Vue({
         
     },
     methods: {
+        yyy() {
+            console.log('yyy')
+        },
         inputChange(e) {
             console.log(e)
         },
