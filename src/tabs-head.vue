@@ -23,7 +23,7 @@ export default {
         // console.log(this.eventBus)
         this.eventBus.$on('update:selected', (item, vm) => {
             this.x = true
-            console.log(vm.$el)
+            // console.log(vm.$el)
             // 渲染到 UI 之后
             this.$nextTick(() => {
                 let {width, height, top, left} = vm.$el.getBoundingClientRect()
