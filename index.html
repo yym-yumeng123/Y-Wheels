@@ -50,9 +50,10 @@
     <div style="overflow: hidden;border: 1px solid green; padding: 5px;"
       @click="yyy">
       <g-popover position="bottom">
-        <template slot="content">
-          <div>aaaaaaaaabbbbbbbbbbbbccccccccccccccccccccccccc</div>
-          <div>aaaaaaaaabbbbbbbbbbbbccccccccccccccccccccccccc</div>
+        <template slot="content" slot-scope="{close}">
+          <div>文字</div>
+          <div><a href="#">新闻</a></div>
+          <g-button @click="close">关闭</g-button>
         </template>
         <g-button>点我</g-button>
       </g-popover>
@@ -69,34 +70,6 @@
         <g-button>点我</g-button>
       </g-popover>
       <g-popover position="left">
-        <template slot="content">
-          <div>popover内容</div>
-        </template>
-        <g-button>点我</g-button>
-      </g-popover>
-
-
-
-      <g-popover position="bottom" trigger="hover">
-        <template slot="content">
-          <div>aaaaaaaaabbbbbbbbbbbbccccccccccccccccccccccccc</div>
-          <div>aaaaaaaaabbbbbbbbbbbbccccccccccccccccccccccccc</div>
-        </template>
-        <g-button>点我</g-button>
-      </g-popover>
-      <g-popover position="right" trigger="hover">
-        <template slot="content">
-          <div>popover内容</div>
-        </template>
-        <g-button>点我</g-button>
-      </g-popover>
-      <g-popover trigger="hover">
-        <template slot="content">
-          <div>popover内容</div>
-        </template>
-        <g-button>点我</g-button>
-      </g-popover>
-      <g-popover position="left" trigger="hover">
         <template slot="content">
           <div>popover内容</div>
         </template>
