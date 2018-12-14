@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" @click="onClick" ref="popover">
+  <div class="popover" ref="popover">
     <div ref="contentWrapper" class="content-wrapper" v-if="visible"
 			:class="{[`position-${position}`]:true}"
 		>
@@ -15,7 +15,44 @@
   export default {
     name: "GuluPopover",
     data () {
-      return {visible: false}
+      return {
+				visible: false,
+			}
+		},
+		mounted () {
+			if(this.trigger === 'click') {
+				// Vue不知道增加了监听函数
+				this.$refs.popover.addEventListener('click',this.onClick)
+			} else {
+				this.$refs.popover.addEventListener('mouseenter',this.open)
+				this.$refs.popover.addEventListener('mouseleave',this.close)
+			}
+			
+		},
+		destroyed() {
+			if(this.trigger === 'click') {
+				// 破坏掉监听
+				this.$refs.popover.removeEventListener('click',this.onClick)
+			} else {
+				this.$refs.popover.removeEventListener('mouseenter',this.open)
+				this.$refs.popover.removeEventListener('mouseleave',this.close)
+			}
+		},
+		computed: {
+			openEvent () {
+				if(this.trigger === 'click') {
+					return 'click'
+				} else {
+					return 'mouseenter'
+				}
+			},
+			closeEvent () {
+				if(this.trigger === 'click') {
+					return 'click'
+				} else {
+					return 'mouseleave'
+				}
+			}
 		},
 		props: {
 			position: {
@@ -23,6 +60,13 @@
 				default: 'top',
 				validator(value) {
 					return ['top', 'bottom', 'left', 'right'].indexOf(value) >=0
+				}
+			},
+			trigger: {
+				type: String,
+				default: 'click',
+				validator(value) {
+					return ['hover', 'click'].indexOf(value) >= 0
 				}
 			}
 		},
@@ -51,7 +95,6 @@
 						left: left + window.scrollX + width
 					},
 				}
-
 				contentWrapper.style.left = positions[this.position].left + 'px'
 				contentWrapper.style.top = positions[this.position].top + 'px'
 			},
