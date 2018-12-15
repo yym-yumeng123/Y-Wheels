@@ -14,7 +14,7 @@ export default {
             default: false
         },
         selected: {
-            type: String,
+            type: Array,
         }
     },
     data() {
@@ -28,9 +28,30 @@ export default {
         }
     },
     mounted () {
+        // 1. 通知所有儿子该选中的选中
         this.eventBus.$emit('update:selected', this.selected)
-        this.eventBus.$on('update:selected', (name) => {
-            this.$emit('update:selected', name)
+
+        // 2. 接收儿子所传过来的意图
+        this.eventBus.$on('update:addSelected', (name) => {
+            // 不支持直接修改props, 深拷贝一下
+            let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+            if (this.single) {
+                selectedCopy = [name]
+            } else {
+                selectedCopy.push(name)
+            }
+            // 3. 通知儿子们该更新了 
+            this.eventBus.$emit('update:selected', selectedCopy)
+            this.$emit('update:selected', selectedCopy)
+        })
+
+        // 4. 同上, 移除
+        this.eventBus.$on('update:removeSelected', (name) => {
+            let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+            let index = selectedCopy.indexOf(name)
+            selectedCopy.splice(index, 1)
+            this.eventBus.$emit('update:selected', selectedCopy)
+            this.$emit('update:selected', selectedCopy)
         })
     }
 }
@@ -42,7 +63,6 @@ export default {
     .collapse {
         border: 1px solid $grey;
         border-radius: $border-radius;
-        // border-bottom: none;
     }
 </style>
 

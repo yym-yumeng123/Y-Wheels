@@ -1,6 +1,6 @@
 <template>
     <div class="collapseItem">
-        <div class="title" @click="toggle">
+        <div class="title" @click="toggle" :data-name="name">
             {{ title }}
         </div>
         <div class="content" v-if="open">
@@ -25,31 +25,25 @@ export default {
     inject: ['eventBus'],
     data () {
         return {
-            open: false
+            open: false,
         }
     },
     methods: {
         toggle () {
-            if(this.open) {
-                this.open= false
+            if (this.open) {
+                this.eventBus && this.eventBus.$emit('update:removeSelected', this.name)
             } else {
-                // this.open= true
-                this.eventBus && this.eventBus.$emit('update:selected', this.name)
+                this.eventBus && this.eventBus.$emit('update:addSelected', this.name)
             }
         },
-        close () {
-            this.open = false
-        },
-        show() {
-            this.open = true
-        }
     },
     mounted () {
-        this.eventBus && this.eventBus.$on('update:selected', (name) => {
-            if(name !== this.name) {
-                this.close()
+        // 1. 监听 eventBus, 只要父元素更新, 就更新
+        this.eventBus && this.eventBus.$on('update:selected', (names) => {
+            if (names.indexOf(this.name) >= 0) {
+                this.open = true
             } else {
-                this.show()
+                this.open = false
             }
         })
     }
@@ -62,8 +56,6 @@ export default {
     .collapseItem {
         > .title {
             border: 1px solid $grey;
-            border: 1px solid red;
-            // border-radius: $border-radius;
             margin-top: -1px;
             margin-left: -1px;
             margin-right: -1px;
