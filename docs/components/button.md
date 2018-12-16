@@ -7,4 +7,8 @@ sidebarDepth: 2
 
 使用方法
 
-<button-y/>
+
+<ClientOnly>
+  <button-y/>
+</ClientOnly>
+
