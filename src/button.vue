@@ -39,13 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    $font-size: 14px;
-    $button-height: 32px;
-    $border-radius: 4px;
-    $border-color: #999;
-    $border-bg: #fff;
-    $border-color-hover: #666;
-    $button-active-bg: #eee;
+    @import "var";
     @keyframes spin {
         0% {transform: rotate(0deg)}
         100% {transform: rotate(360deg)}
