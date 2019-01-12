@@ -61,10 +61,13 @@ Vue.component('g-collapse-item', CollapseItem)
 
 Vue.component('g-cascader', Cascader)
 
+import createElement from 'vue'
+
+const h = createElement
+
 new Vue({
     el: '#app',
     data: {
-        selectedTab1: 'sports',
         source: [{
             name: '浙江',
             children: [
@@ -98,41 +101,10 @@ new Vue({
                 },
             ]
         }]
-      
     },
     created() {
-        
     },
     methods: {
-        yyy() {
-            console.log('yyy')
-        },
-        inputChange(e) {
-            console.log(e)
-        },
-        showToast1() {
-            this.showToast('top')
-        },
-        showToast2() {
-            this.showToast('middle')
-        },
-        showToast3() {
-            this.showToast('bottom')
-        },
-        showToast(position) {
-            this.$toast(`很多文字${parseInt(Math.random()*100)}`, {
-                position,
-                enableHtml: false,
-                autoClose: 3,
-                closeButton: {
-                    text: '已充值',
-                    callback() {
-                        console.log('已经充值')
-                    }
-
-                }
-            })
-        }
     }
 })
 
