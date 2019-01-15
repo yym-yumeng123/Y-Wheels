@@ -44,9 +44,15 @@ export default {
           ]
         }
       ]
-    };
+  	};
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+*{margin: 0;padding: 0;}
+*, *::after, *::before{box-sizing: border-box;}
+html {
+  font-size: 12px;
+}
+</style>
