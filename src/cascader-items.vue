@@ -45,12 +45,15 @@ export default {
       default: 0
     }
   },
+  // computed 依赖属性值没变化, UI不变, 缓存问题
   computed: {
     rightItems() {
-      let currentSelected = this.selected[this.level]
-      return currentSelected && currentSelected.children
-        ? currentSelected.children
-        : null;
+      if(this.selected && this.selected[this.level]) {
+        let items = this.items.filter(item => item.name === this.selected[this.level].name)
+        if(items && items[0].children && items[0].children.length > 0) {
+          return items[0].children
+        }
+      }
     }
   },
   methods: {

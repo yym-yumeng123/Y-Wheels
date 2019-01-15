@@ -1,6 +1,9 @@
 <template>
   <div>
-    <g-cascader popoverHeight="200px" :source.sync="source" :selected.sync="selected"
+    <g-cascader 
+			popoverHeight="200px"
+		  :source.sync="source"
+			:selected.sync="selected"
 			:load-data="loadData"
 		></g-cascader>
   </div>
