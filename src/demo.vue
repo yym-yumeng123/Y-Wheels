@@ -1,6 +1,6 @@
 <template>
   <div>
-    <g-cascader popoverHeight="200px" :source="source" :selected.sync="selected"
+    <g-cascader popoverHeight="200px" :source.sync="source" :selected.sync="selected"
 			:load-data="loadData"
 		></g-cascader>
   </div>
@@ -17,7 +17,7 @@ function ajax(parentId = 0) {
 		setTimeout(()=> {
 			let result = db.filter((item) => item.parent_id == parentId)
 			success(result)
-		},2000)
+		},500)
 	})
 }
 
