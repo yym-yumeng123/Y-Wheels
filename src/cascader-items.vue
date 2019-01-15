@@ -60,6 +60,8 @@ export default {
       // 深拷贝
       let copy = JSON.parse(JSON.stringify(this.selected))
       copy[this.level] = item
+      // 数据变动, 后面的数据不要
+      copy.splice(this.level + 1)
       // this.$set(this.selected, this.level, item)
       this.$emit('update:selected', copy)
     },
