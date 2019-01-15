@@ -1,11 +1,10 @@
 <template>
   <div class="cascaderItem" :style="{ height: height }">
     <div class="left">
-      <div
-        class="lable"
+      <div class="lable"
         v-for="(item, index) in items"
         :key="index"
-        @click="leftSelected = item"
+        @click="onClickLabel(item)"
       >
         {{ item.name }}
         <icon v-if="item.children" name="right" class="icon"></icon>
@@ -15,6 +14,9 @@
       <element-cascader-items
         :items="rightItems"
         :height="height"
+        :level="level + 1"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
       ></element-cascader-items>
     </div>
   </div>
@@ -33,18 +35,36 @@ export default {
     },
     height: {
       type: String
+    },
+    selected: {
+      type: Array,
+      default: () => []
+    },
+    level: {
+      type: Number,
+      default: 0
     }
-  },
-  data() {
-    return {
-      leftSelected: null
-    };
   },
   computed: {
     rightItems() {
-      return this.leftSelected && this.leftSelected.children
-        ? this.leftSelected.children
+      let currentSelected = this.selected[this.level]
+      return currentSelected && currentSelected.children
+        ? currentSelected.children
         : null;
+    }
+  },
+  methods: {
+    onClickLabel (item) {
+      // Vue 不允许在已经创建的实例上添加新的响应式属性, 修改数组要小心
+      // this.selected[this.level] = item
+      // 深拷贝
+      let copy = JSON.parse(JSON.stringify(this.selected))
+      copy[this.level] = item
+      // this.$set(this.selected, this.level, item)
+      this.$emit('update:selected', copy)
+    },
+    onUpdateSelected (newSelected) {
+      this.$emit('update:selected', newSelected)
     }
   }
 };

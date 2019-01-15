@@ -1,9 +1,7 @@
 <template>
   <div>
-    hi
-    <g-button>点击</g-button>
-    <div style="margin-bottom: 10px"><g-input></g-input></div>
-    <g-cascader :source="source"></g-cascader>
+		{{selected}}
+    <g-cascader :source="source" :selected="selected" @update:selected="selected = $event"></g-cascader>
   </div>
 </template>
 
@@ -20,6 +18,7 @@ export default {
   },
   data() {
     return {
+			selected: [],
       source: [
         {
           name: "浙江",
@@ -41,6 +40,19 @@ export default {
               name: "福州",
               children: [{ name: "鼓楼" }, { name: "台江" }, { name: "仓山" }]
             }
+          ]
+        },
+        {
+          name: "安徽",
+          children: [
+            {
+              name: "合肥",
+              children: [{ name: "瑶海" }, { name: "张江" }, { name: "小二" }]
+            },
+            {
+              name: "芜湖",
+              children: [{ name: "弋江" }, { name: "鸠江" }, { name: "二哥" }]
+            },
           ]
         }
       ]
