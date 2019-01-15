@@ -1,7 +1,6 @@
 <template>
   <div>
-		{{selected}}
-    <g-cascader :source="source" :selected="selected" @update:selected="selected = $event"></g-cascader>
+    <g-cascader popoverHeight="200px" :source="source" :selected.sync="selected"></g-cascader>
   </div>
 </template>
 
@@ -9,6 +8,14 @@
 import Button from "./button";
 import Input from "./input";
 import Cascader from "./cascader";
+import db from './db'
+
+function ajax(parentId = 0) {
+	return new Promise((success, fail) => {
+		let result = db.filter((item) => item.parent_id == parentId)
+		success(result)
+	})
+}
 export default {
   name: "demo",
   components: {
@@ -19,45 +26,14 @@ export default {
   data() {
     return {
 			selected: [],
-      source: [
-        {
-          name: "浙江",
-          children: [
-            {
-              name: "杭州",
-              children: [{ name: "上城" }, { name: "下城" }, { name: "江干" }]
-            },
-            {
-              name: "嘉兴",
-              children: [{ name: "南湖" }, { name: "秀洲" }, { name: "嘉善" }]
-            }
-          ]
-        },
-        {
-          name: "福建",
-          children: [
-            {
-              name: "福州",
-              children: [{ name: "鼓楼" }, { name: "台江" }, { name: "仓山" }]
-            }
-          ]
-        },
-        {
-          name: "安徽",
-          children: [
-            {
-              name: "合肥",
-              children: [{ name: "瑶海" }, { name: "张江" }, { name: "小二" }]
-            },
-            {
-              name: "芜湖",
-              children: [{ name: "弋江" }, { name: "鸠江" }, { name: "二哥" }]
-            },
-          ]
-        }
-      ]
-  	};
-  }
+			source: []
+		}
+	},
+	created() {
+		ajax(0).then(result => {
+			this.source = result
+		})
+	}
 };
 </script>
 
