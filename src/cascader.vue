@@ -45,6 +45,13 @@ export default {
   methods: {
     onUpdateSelected (newSelected) {
       this.$emit('update:selected', newSelected)
+      let lastItem = newSelected[newSelected.length -1]
+      // 如何更新 source
+      let updateSource = (result) => {
+        let toUpdate= this.source.filter(item => item.id === lastItem.id)[0]
+        this.$set(toUpdate, 'children', result)
+      }
+      this.loadData(lastItem, updateSource)  // 回调: 把别人传给我的函数调用一下
     }
   },
   computed: {
