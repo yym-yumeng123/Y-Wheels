@@ -1,8 +1,5 @@
 <template>
-    <div class="header">
-        <slot></slot>
-    </div>
+  <div class="header"><slot></slot></div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

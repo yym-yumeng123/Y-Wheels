@@ -1,94 +1,96 @@
 <template>
-    <!-- 触发click事件 -->
-    <button class="g-button yym" :class="{[`icon-${iconPosition}`]: true}"
-        @click="$emit('click')"
-    >
-        <!-- v-if=icon : 是否出现icon -->
-        <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
-        <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content-wrapper">
-            <slot></slot>  
-        </div>
-    </button>
+  <!-- 触发click事件 -->
+  <button
+    class="g-button yym"
+    :class="{ [`icon-${iconPosition}`]: true }"
+    @click="$emit('click')"
+  >
+    <!-- v-if=icon : 是否出现icon -->
+    <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
+    <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
+    <div class="content-wrapper"><slot></slot></div>
+  </button>
 </template>
 
 <script>
-import Icon from './icon'
+import Icon from "./icon";
 export default {
-    name: 'ElementButton',
-    components: {
-        'g-icon': Icon
+  name: "ElementButton",
+  components: {
+    "g-icon": Icon
+  },
+  // props: ['icon', 'iconPosition']
+  props: {
+    icon: String,
+    loading: {
+      type: Boolean,
+      default: false
     },
-    // props: ['icon', 'iconPosition']
-    props: {
-        icon: String,
-        loading: {
-            type: Boolean,
-            default: false
-        },
-        iconPosition: {
-            type: String,
-            default: 'left',
-            // 防止写除了left 和 right, 属性的检查器
-            validator(value) {
-                return value === 'left' || value === 'right'
-            }
-        }
+    iconPosition: {
+      type: String,
+      default: "left",
+      // 防止写除了left 和 right, 属性的检查器
+      validator(value) {
+        return value === "left" || value === "right";
+      }
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-    @import "var";
-    @keyframes spin {
-        0% {transform: rotate(0deg)}
-        100% {transform: rotate(360deg)}
+@import "var";
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.g-button {
+  font-size: $font-size;
+  height: $button-height;
+  padding: 0 1em;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  background: $border-bg;
+
+  // 设置icon左右
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+
+  &:hover {
+    border-color: $border-color-hover;
+  }
+  &:active {
+    background-color: $button-active-bg;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  > .content-wrapper {
+    order: 2;
+  }
+  > .icon {
+    order: 1;
+    margin-right: 0.3em;
+  }
+  &.icon-right {
+    > .content-wrapper {
+      order: 1;
     }
-    .g-button {
-        font-size: $font-size;
-        height: $button-height;
-        padding: 0 1em;
-        border-radius: $border-radius;
-        border: 1px solid $border-color;
-        background: $border-bg;
-
-        // 设置icon左右
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        vertical-align: middle;
-
-        &:hover {
-            border-color: $border-color-hover;
-        }
-        &:active {
-            background-color: $button-active-bg;
-        }
-        &:focus {
-            outline: none;
-        }
-
-        > .content-wrapper {
-            order: 2;
-        }
-        > .icon {
-            order: 1;
-            margin-right: .3em;
-        }
-        &.icon-right {
-            > .content-wrapper {
-                order: 1;
-            }
-            > .icon {
-                order: 2;
-                margin-left: .3em;
-                margin-right: 0;
-            }
-        }
-        .loading {
-            animation: spin 1s linear infinite;
-        }
+    > .icon {
+      order: 2;
+      margin-left: 0.3em;
+      margin-right: 0;
     }
-
+  }
+  .loading {
+    animation: spin 1s linear infinite;
+  }
+}
 </style>
-
