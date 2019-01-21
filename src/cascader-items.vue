@@ -102,6 +102,7 @@ export default {
     padding: 0.5em 1em;
     display: flex;
     align-items: center;
+    white-space: nowrap;
     &:hover {
       cursor: pointer;
       background: $grey;
