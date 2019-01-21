@@ -48,7 +48,6 @@ export default {
 	created() {
 		ajax(0).then(result => {
 			this.source = result
-			console.log(result)
 		})
 	},
 	methods: {

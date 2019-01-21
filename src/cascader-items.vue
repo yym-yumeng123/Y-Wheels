@@ -7,7 +7,8 @@
         @click="onClickLabel(item)"
       >
         <span class="name">{{ item.name }}</span>
-        <icon v-if="!item.isLeaf" name="right" class="icon"></icon>
+        <!-- 判断是否动态加载 -->
+        <icon v-if="loadData ? !item.isLeaf : item.children" name="right" class="icon"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -33,6 +34,9 @@ export default {
     items: {
       type: Array
     },
+    loadData : {
+      type: Function
+    },
     height: {
       type: String
     },
@@ -54,7 +58,7 @@ export default {
           return items[0].children
         }
       }
-    }
+    },
   },
   methods: {
     onClickLabel (item) {
@@ -70,7 +74,10 @@ export default {
     },
     onUpdateSelected (newSelected) {
       this.$emit('update:selected', newSelected)
-    }
+    },
+    // rightArrowVisible (item) {
+    //   return this.loadData ? !item.isLeaf : item.children
+    // }
   }
 };
 </script>
