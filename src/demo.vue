@@ -19,6 +19,15 @@ function ajax(parentId = 0) {
 	return new Promise((success, fail) => {
 		setTimeout(()=> {
 			let result = db.filter((item) => item.parent_id == parentId)
+
+			result.forEach(node => {
+				if (db.filter(item => item.parent_id === node.id).length > 0) {
+					node.isLeaf = false
+				} else {
+					node.isLeaf = true
+				}
+			})
+
 			success(result)
 		},500)
 	})
@@ -39,6 +48,7 @@ export default {
 	created() {
 		ajax(0).then(result => {
 			this.source = result
+			console.log(result)
 		})
 	},
 	methods: {

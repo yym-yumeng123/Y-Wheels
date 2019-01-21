@@ -7,6 +7,7 @@
       <cascader-items
         :items="source"
         class="popover"
+        :loadData="loadData"
         :height="popoverHeight"
         :selected="selected"
         @update:selected="onUpdateSelected"
@@ -18,7 +19,7 @@
 <script>
 import CascaderItems from "./cascader-items";
 export default {
-  name: "GuluCascader",
+  name: "ElementCascader",
   components: { CascaderItems },
   props: {
     source: {
@@ -84,7 +85,12 @@ export default {
         toUpdate.children = result
         this.$emit('update:source', copy)
       }
-      this.loadData(lastItem, updateSource)  // 回调: 把别人传给我的函数调用一下
+
+      // 是否显示加载
+      if(!lastItem.isLeaf) {
+        this.loadData && this.loadData(lastItem, updateSource)  // 回调: 把别人传给我的函数调用一下
+      }
+      
     }
   },
   computed: {
