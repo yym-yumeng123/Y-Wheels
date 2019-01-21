@@ -49,21 +49,11 @@ export default {
     }
   },
   methods: {
-    // onClickDocument (e) {
-    //   let {cascader} = this.$refs
-    //   let {target} = e
-    //   if(cascader === target || cascader.contains(target)) return
-    //   this.close()
-    // },
     open () {
       this.popoverVisible = true
-      // this.$nextTick(() => {
-      //   document.addEventListener('click', this.onClickDocument)
-      // })
     },
     close () {
       this.popoverVisible = false
-      // document.removeEventListener('click', this.onClickDocument)
     },
     toggle () {
       if (this.popoverVisible === true) {
