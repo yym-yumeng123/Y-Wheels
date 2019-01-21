@@ -6,7 +6,12 @@
 			:selected.sync="selected"
 			:load-data="loadData"
 		></g-cascader>
+
+
+		<g-button icon="loading" loading>点我</g-button>
   </div>
+
+	
 </template>
 
 <script>
@@ -29,7 +34,7 @@ function ajax(parentId = 0) {
 			})
 
 			success(result)
-		},500)
+		},1000)
 	})
 }
 
@@ -42,7 +47,7 @@ export default {
   data() {
     return {
 			selected: [],
-			source: []
+			source: [],
 		}
 	},
 	created() {
@@ -57,7 +62,7 @@ export default {
 			ajax(id).then(result => {
 				updateSource(result)  // 回调: 把别人传给我的函数调用一下
 			})
-		}
+		},
 	}
 };
 </script>

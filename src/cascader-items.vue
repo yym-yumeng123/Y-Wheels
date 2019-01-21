@@ -8,13 +8,22 @@
       >
         <span class="name">{{ item.name }}</span>
         <!-- 判断是否动态加载 -->
-        <icon v-if="loadData ? !item.isLeaf : item.children" name="right" class="icon"></icon>
+        <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <icon name="loading" class="iconLoading"></icon>
+          </template>
+          <template v-else>
+            <icon v-if="loadData ? !item.isLeaf : item.children" name="right" class="icon"></icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <element-cascader-items
         :items="rightItems"
         :height="height"
+        :loading-item="loadingItem"
+        :load-data="loadData"
         :level="level + 1"
         :selected="selected"
         @update:selected="onUpdateSelected"
@@ -47,6 +56,10 @@ export default {
     level: {
       type: Number,
       default: 0
+    },
+    loadingItem: {
+      type: Object,
+      default: () => ({})
     }
   },
   // computed 依赖属性值没变化, UI不变, 缓存问题
@@ -111,9 +124,12 @@ export default {
       margin-right: 1em;
       user-select: none;
     }
-    .icon {
+    .icons {
       margin-left: auto;
       transform: scale(0.7);
+      >.iconLoading {
+        animation: spin 1s linear infinite;
+      }
     }
   }
 }
