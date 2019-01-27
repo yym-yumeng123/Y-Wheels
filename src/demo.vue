@@ -1,69 +1,44 @@
 <template>
   <div>
-    <g-cascader 
-			popoverHeight="200px"
-		  :source.sync="source"
-			:selected.sync="selected"
-			:load-data="loadData"
-		></g-cascader>
-
-
-		<g-button icon="loading" loading>点我</g-button>
+		<y-slides :selected="selected">
+			<y-slides-item name="1">
+        <div class="box">1</div>
+      </y-slides-item>
+			<y-slides-item name="2">
+        <div class="box">2</div>
+      </y-slides-item>
+			<y-slides-item name="3">
+        <div class="box">3</div>
+      </y-slides-item>
+		</y-slides>
   </div>
-
-	
 </template>
 
 <script>
-import Button from "./button";
-import Cascader from "./cascader";
-import db from './db'
-
-// Promise
-function ajax(parentId = 0) {
-	return new Promise((success, fail) => {
-		setTimeout(()=> {
-			let result = db.filter((item) => item.parent_id == parentId)
-
-			result.forEach(node => {
-				if (db.filter(item => item.parent_id === node.id).length > 0) {
-					node.isLeaf = false
-				} else {
-					node.isLeaf = true
-				}
-			})
-
-			success(result)
-		},1000)
-	})
-}
+import ySlides from './slides/slides.vue'
+import ySlidesItem from './slides/slides-item.vue'
 
 export default {
   name: "demo",
   components: {
-    "g-button": Button,
-    "g-cascader": Cascader,
+    ySlides,
+    ySlidesItem
   },
   data() {
     return {
-			selected: [],
-			source: [],
-		}
-	},
-	created() {
-		ajax(0).then(result => {
-			this.source = result
-		})
-	},
-	methods: {
-		// 接口 loadData 接受参数
-		loadData (item, updateSource) {
-			let {name, id, parent_id} = item
-			ajax(id).then(result => {
-				updateSource(result)  // 回调: 把别人传给我的函数调用一下
-			})
-		},
-	}
+      selected: undefined
+    }
+  },
+  created() {
+    let n = 1
+    setInterval(() => {
+      if (n === 4) {
+        n = 1
+      }
+      this.selected = n.toString()
+      n++
+    }, 3000);
+  }
 };
 </script>
 
@@ -72,5 +47,10 @@ export default {
 *, *::after, *::before{box-sizing: border-box;}
 html {
   font-size: 12px;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
 }
 </style>
