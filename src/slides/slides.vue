@@ -73,7 +73,9 @@ export default {
             let selected = this.getSelected()
             this.$children.forEach(vm => {
                 vm.selected = selected
-                vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+                this.$nextTick(()=>{
+                    vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+                })
             });
         }
     }
