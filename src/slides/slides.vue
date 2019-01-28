@@ -9,7 +9,7 @@
             <span v-for="n in childrenLength" :key="n" :class="{active: selectedIndex === n-1}"
                 @click="select(n-1)"
             >
-                {{n}}
+                {{n-1}}
             </span>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
     data () {
         return {
             childrenLength: 0,
-            lastSelected: undefined
+            lastSelectedIndex: undefined
         }
     },
     computed: {
@@ -51,7 +51,8 @@ export default {
     },
     methods: {
         select(index) {
-            this.$emit('update:selected', this.names[index])
+            this.lastSelectedIndex = this.selectedIndex // 触发新值之前, 被选中的index 赋值给lastIndex
+            this.$emit('update:selected', this.names[index])  // 上面后 index 会变化
         },
         getSelected () {
             let first = this.$children[0]
@@ -63,7 +64,7 @@ export default {
                 let newIndex = index -1
                 if (newIndex === -1) { newIndex = this.names.length - 1}
                 if (newIndex === this.names.length) { newIndex = 0}
-                this.$emit('update:selected', this.names[newIndex])
+                this.select(newIndex)
                 setTimeout(run, 3000)
             }
             // setTimeout(run, 3000)
@@ -72,10 +73,7 @@ export default {
             let selected = this.getSelected()
             this.$children.forEach(vm => {
                 vm.selected = selected
-                // 往 children 传递一个
-                let newIndex = this.names.indexOf(selected)
-                let oldIndex = this.names.indexOf(vm.name)
-                vm.reverse = newIndex > oldIndex ? false : true
+                vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
             });
         }
     }
