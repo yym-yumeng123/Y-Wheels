@@ -1,15 +1,15 @@
 <template>
   <div>
-		<y-slides :selected="selected">
-			<y-slides-item name="1">
+		<y-slides :selected.sync="selected">
+			<y-slides-item name="你好">
         <div class="box">1</div>
       </y-slides-item>
-			<y-slides-item name="2">
+			<y-slides-item name="hello">
         <div class="box">2</div>
       </y-slides-item>
-			<y-slides-item name="3">
+			<y-slides-item name="3啊啊啊">
         <div class="box">3</div>
-      </y-slides-item>
+    	</y-slides-item>
 		</y-slides>
   </div>
 </template>
@@ -30,14 +30,6 @@ export default {
     }
   },
   created() {
-    let n = 1
-    setInterval(() => {
-      if (n === 4) {
-        n = 1
-      }
-      this.selected = n.toString()
-      n++
-    }, 3000);
   }
 };
 </script>
