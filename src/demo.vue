@@ -1,13 +1,13 @@
 <template>
   <div>
 		<y-slides :selected.sync="selected">
-			<y-slides-item name="你好">
+			<y-slides-item name="1">
         <div class="box">1</div>
       </y-slides-item>
-			<y-slides-item name="hello">
+			<y-slides-item name="2">
         <div class="box">2</div>
       </y-slides-item>
-			<y-slides-item name="3啊啊啊">
+			<y-slides-item name="3">
         <div class="box">3</div>
     	</y-slides-item>
 		</y-slides>
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      selected: "3啊啊啊"
+      selected: "3"
     }
   },
   created() {
