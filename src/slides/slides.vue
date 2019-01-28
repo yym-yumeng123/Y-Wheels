@@ -36,12 +36,6 @@ export default {
         playAutomatclly () {
             const names = this.$children.map( vm => vm.name)
             let index = names.indexOf(this.getSelected())
-            // 周期触发
-            // setInterval(()=> {  // 会造成内存过大, 不清楚 Interval
-            //     if (index === names.length) {index = 0}
-            //     this.$emit('update:selected', names[index + 1])
-            //     index++
-            // }, 2000)
             let run = () => {
                 if (index === names.length) { index = 0}
                 this.$emit('update:selected', names[index + 1])
@@ -54,6 +48,11 @@ export default {
             let selected = this.getSelected()
             this.$children.forEach(vm => {
                 vm.selected = selected
+                // 往 children 传递一个
+                const names = this.$children.map(vm => vm.name)
+                let newIndex = names.indexOf(selected)  // 选中的 selcted 下标
+                let oldIndex = names.indexOf(vm.name)  // 要更新的下标
+                vm.reverse = newIndex > oldIndex ? false : true
             });
         }
     }
@@ -62,8 +61,10 @@ export default {
 
 <style lang="scss" scoped>
     .y-slides {
-        display: inline-block;
         border: 1px solid black;
+        &-window {
+            overflow: hidden;
+        }
         &-wrapper {
             position: relative;
         }

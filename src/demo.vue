@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      selected: undefined
+      selected: "3啊啊啊"
     }
   },
   created() {
@@ -34,15 +34,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 *{margin: 0;padding: 0;}
 *, *::after, *::before{box-sizing: border-box;}
 html {
   font-size: 12px;
 }
 .box {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 300px;
   border: 1px solid red;
+	background: #ddd;
 }
 </style>
