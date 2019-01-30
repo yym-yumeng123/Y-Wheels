@@ -73,7 +73,7 @@ export default {
             if(this.timeId) {}
             let run = () => {
                 let index = this.names.indexOf(this.getSelected())  // index 需重新获取
-                let newIndex = index -1
+                let newIndex = index - 1
                 if (newIndex === -1) { newIndex = this.names.length - 1}
                 if (newIndex === this.names.length) { newIndex = 0}
                 this.select(newIndex)  // 告诉外界选中 newIndex
@@ -84,9 +84,16 @@ export default {
         updateChildren () {
             let selected = this.getSelected()
             this.$children.forEach(vm => {
-                vm.selected = selected
+                let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+                if(this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
+                    reverse = false
+                }
+                if(this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
+                    reverse = true
+                }
+                vm.reverse = reverse
                 this.$nextTick(()=>{
-                    vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+                    vm.selected = selected
                 })
             });
         }
