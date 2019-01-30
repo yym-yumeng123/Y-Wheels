@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="y-slides-dots">  
-            <span @click="onClickPrev">
+            <span @click="onClickPrev" data-action="prev">
                 <y-icon name="left"></y-icon>
             </span>
             <span v-for="n in childrenLength" :key="n" :data-index="n - 1" :class="{active: selectedIndex === n-1}"
@@ -17,7 +17,7 @@
             >
                 {{n}}
             </span>
-            <span @click="onClickNext">
+            <span @click="onClickNext" data-action="next">
                 <y-icon name="right"></y-icon>
             </span>
         </div>
@@ -71,6 +71,9 @@ export default {
     },
     updated () {
         this.updateChildren()
+    },
+    beforeDestroy () {
+        this.pause()
     },
     methods: {
         onClickPrev () {
