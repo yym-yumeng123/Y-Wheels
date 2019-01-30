@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 40px">
+  <div style="padding: 20px">
 		<y-slides :selected.sync="selected">
 			<y-slides-item name="1">
         <div class="box">1</div>
