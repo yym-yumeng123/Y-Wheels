@@ -9,7 +9,7 @@
             <span v-for="n in childrenLength" :key="n" :class="{active: selectedIndex === n-1}"
                 @click="select(n-1)"
             >
-                {{n-1}}
+                {{n}}
             </span>
         </div>
     </div>
@@ -31,7 +31,7 @@ export default {
         return {
             childrenLength: 0,
             lastSelectedIndex: undefined,
-            timeId: undefined
+            timeId: undefined,  // 判断动画停止
         }
     },
     computed: {
@@ -73,7 +73,7 @@ export default {
             if(this.timeId) {}
             let run = () => {
                 let index = this.names.indexOf(this.getSelected())  // index 需重新获取
-                let newIndex = index - 1
+                let newIndex = index + 1
                 if (newIndex === -1) { newIndex = this.names.length - 1}
                 if (newIndex === this.names.length) { newIndex = 0}
                 this.select(newIndex)  // 告诉外界选中 newIndex
@@ -85,11 +85,13 @@ export default {
             let selected = this.getSelected()
             this.$children.forEach(vm => {
                 let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-                if(this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
-                    reverse = false
-                }
-                if(this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
-                    reverse = true
+                if(this.timeId) {
+                    if(this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
+                        reverse = false
+                    }
+                    if(this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
+                        reverse = true
+                    }
                 }
                 vm.reverse = reverse
                 this.$nextTick(()=>{
@@ -110,9 +112,29 @@ export default {
             position: relative;
         }
         &-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
             > span {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #ddd;
+                margin: 0 8px;
+                font-size: 12px;
+                &:hover {
+                    cursor: pointer;
+                }
                 &.active {
-                    background: red;
+                    background: #000;
+                    color: #fff;
+                    &:hover {
+                        cursor: default;
+                    }
                 }
             }
             
