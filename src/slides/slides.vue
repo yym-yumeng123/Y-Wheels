@@ -1,5 +1,9 @@
 <template>
-    <div class="y-slides" @mouseenter="onMousEenter" @mouseleave="onMouseLeave">
+    <div class="y-slides" @mouseenter="onMousEenter" @mouseleave="onMouseLeave"
+        @touchstart="onTouchStart"
+        @touchmove="onTouchMove"
+        @touchend="onTouchEnd"
+    >
         <div class="y-slides-window" ref="window">
             <div class="y-slides-wrapper">
                 <slot></slot>
@@ -32,11 +36,13 @@ export default {
             childrenLength: 0,
             lastSelectedIndex: undefined,
             timeId: undefined,  // 判断动画停止
+            startTouch: undefined, // 手机手指开始触摸的点
         }
     },
     computed: {
         selectedIndex () {
-            return this.names.indexOf(this.selected) || 0
+            let index = this.names.indexOf(this.selected)
+            return index === -1 ? 0 : index
         },
         names () {
             return this.$children.map( vm => vm.name)
@@ -51,15 +57,44 @@ export default {
         this.updateChildren()
     },
     methods: {
+        onTouchStart(e) {
+            console.log(e.touches[0])
+            if (e.touches.length > 1) {return}
+            this.startTouch = e.touches[0]
+            this.pause()
+        },
+        onTouchMove() {
+        },
+        onTouchEnd(e) {
+            let endTouch = e.changedTouches[0]
+            let {clientX:x1, clientY:y1} = this.startTouch
+            let {clientX:x2, clientY:y2} = endTouch
+            // 判断用户滑动轨迹的夹角
+            let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+            let deltaY = Math.abs(y2 - y1)
+            let rate = distance / deltaY
+            if (rate > 2) {
+                if (x2 > x1) {
+                    this.select(this.selectedIndex - 1)
+                }else {
+                    this.select(this.selectedIndex + 1)
+                }
+            }
+            this.$nextTick(()=> {
+                this.playAutomatclly()
+            })
+        },
         onMousEenter () {
             this.pause()
         },
         onMouseLeave () {
             this.playAutomatclly()
         },
-        select(index) {
+        select(newIndex) {
             this.lastSelectedIndex = this.selectedIndex // 触发新值之前, 被选中的index 赋值给lastIndex
-            this.$emit('update:selected', this.names[index])  // 上面后 index 会变化
+            if (newIndex === -1) { newIndex = this.names.length - 1}
+            if (newIndex === this.names.length) { newIndex = 0}
+            this.$emit('update:selected', this.names[newIndex])  // 上面后 index 会变化
         },
         getSelected () {
             let first = this.$children[0]
@@ -74,8 +109,6 @@ export default {
             let run = () => {
                 let index = this.names.indexOf(this.getSelected())  // index 需重新获取
                 let newIndex = index + 1
-                if (newIndex === -1) { newIndex = this.names.length - 1}
-                if (newIndex === this.names.length) { newIndex = 0}
                 this.select(newIndex)  // 告诉外界选中 newIndex
                 this.timeId = setTimeout(run, 3000)
             }
