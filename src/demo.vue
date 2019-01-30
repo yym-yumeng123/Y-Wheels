@@ -43,7 +43,10 @@ html {
 .box {
   width: 100%;
   height: 300px;
-  border: 1px solid red;
 	background: #ddd;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 32px;
 }
 </style>

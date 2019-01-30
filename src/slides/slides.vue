@@ -1,5 +1,5 @@
 <template>
-    <div class="y-slides">
+    <div class="y-slides" @mouseenter="onMousEenter" @mouseleave="onMouseLeave">
         <div class="y-slides-window" ref="window">
             <div class="y-slides-wrapper">
                 <slot></slot>
@@ -30,7 +30,8 @@ export default {
     data () {
         return {
             childrenLength: 0,
-            lastSelectedIndex: undefined
+            lastSelectedIndex: undefined,
+            timeId: undefined
         }
     },
     computed: {
@@ -50,6 +51,12 @@ export default {
         this.updateChildren()
     },
     methods: {
+        onMousEenter () {
+            this.pause()
+        },
+        onMouseLeave () {
+            this.playAutomatclly()
+        },
         select(index) {
             this.lastSelectedIndex = this.selectedIndex // 触发新值之前, 被选中的index 赋值给lastIndex
             this.$emit('update:selected', this.names[index])  // 上面后 index 会变化
@@ -58,16 +65,21 @@ export default {
             let first = this.$children[0]
             return this.selected || first.name
         },
+        pause () {
+            window.clearTimeout(this.timeId)
+            this.timeId = undefined
+        },
         playAutomatclly () {
-            let index = this.names.indexOf(this.getSelected())
+            if(this.timeId) {}
             let run = () => {
+                let index = this.names.indexOf(this.getSelected())  // index 需重新获取
                 let newIndex = index -1
                 if (newIndex === -1) { newIndex = this.names.length - 1}
                 if (newIndex === this.names.length) { newIndex = 0}
-                this.select(newIndex)
-                setTimeout(run, 3000)
+                this.select(newIndex)  // 告诉外界选中 newIndex
+                this.timeId = setTimeout(run, 3000)
             }
-            // setTimeout(run, 3000)
+            this.timeId = setTimeout(run, 3000)
         },
         updateChildren () {
             let selected = this.getSelected()
@@ -84,7 +96,6 @@ export default {
 
 <style lang="scss" scoped>
     .y-slides {
-        border: 1px solid black;
         &-window {
             overflow: hidden;
         }
