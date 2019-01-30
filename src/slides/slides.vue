@@ -12,7 +12,7 @@
             <span @click="onClickPrev">
                 <y-icon name="left"></y-icon>
             </span>
-            <span v-for="n in childrenLength" :key="n" :class="{active: selectedIndex === n-1}"
+            <span v-for="n in childrenLength" :key="n" :data-index="n - 1" :class="{active: selectedIndex === n-1}"
                 @click="select(n-1)"
             >
                 {{n}}
@@ -36,6 +36,10 @@ export default {
         autoPlay: {
             type: Boolean,
             default: true
+        },
+        autoPlayDelay: {
+            type: Number,
+            default: 3000
         }
     },
     data () {
@@ -60,7 +64,9 @@ export default {
     },
     mounted () {
         this.updateChildren()
-        this.playAutomatclly()
+        if (this.autoPlay) {
+            this.playAutomatclly()
+        }
         this.childrenLength = this.items.length
     },
     updated () {
@@ -97,14 +103,18 @@ export default {
                 }
             }
             this.$nextTick(()=> {
-                this.playAutomatclly()
+                if (this.autoPlay) {
+                    this.playAutomatclly()
+                }
             })
         },
         onMousEenter () {
             this.pause()
         },
         onMouseLeave () {
-            this.playAutomatclly()
+                if (this.autoPlay) {
+                    this.playAutomatclly()
+                }
         },
         select(newIndex) {
             this.lastSelectedIndex = this.selectedIndex // 触发新值之前, 被选中的index 赋值给lastIndex
@@ -126,9 +136,9 @@ export default {
                 let index = this.names.indexOf(this.getSelected())  // index 需重新获取
                 let newIndex = index + 1
                 this.select(newIndex)  // 告诉外界选中 newIndex
-                this.timeId = setTimeout(run, 3000)
+                this.timeId = setTimeout(run, this.autoPlayDelay)
             }
-            this.timeId = setTimeout(run, 3000)
+            this.timeId = setTimeout(run, this.autoPlayDelay)
         },
         updateChildren () {
             let selected = this.getSelected()
