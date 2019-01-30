@@ -1,7 +1,6 @@
 <template>
     <div class="y-slides" @mouseenter="onMousEenter" @mouseleave="onMouseLeave"
         @touchstart="onTouchStart"
-        @touchmove="onTouchMove"
         @touchend="onTouchEnd"
     >
         <div class="y-slides-window" ref="window">
