@@ -31,7 +31,7 @@ export default {
       this.$refs.popover.addEventListener("mouseleave", this.close);
     }
   },
-  destroyed() {
+  beforeDestroy () {
     if (this.trigger === "click") {
       // 破坏掉监听
       this.$refs.popover.removeEventListener("click", this.onClick);
