@@ -1,5 +1,7 @@
 <template>
-    
+    <div class="y-nav-item">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
