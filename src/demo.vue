@@ -1,9 +1,9 @@
 <template>
   <div style="padding: 20px">
-    <y-nav>
-      <y-nav-item>首页</y-nav-item>
-      <y-nav-item>招聘</y-nav-item>
-      <y-nav-item>关于</y-nav-item>
+    <y-nav :selected="selected">
+      <y-nav-item name="home">首页</y-nav-item>
+      <y-nav-item name="hire">招聘</y-nav-item>
+      <y-nav-item name="about">关于</y-nav-item>
     </y-nav>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      
+      selected: ['home']
     }
   },
   created() {

@@ -1,5 +1,7 @@
 <template>
-    
+    <div class="y-sub-nav">
+        <slot></slot>
+    </div>
 </template>
 
 <script>

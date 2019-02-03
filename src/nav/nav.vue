@@ -7,6 +7,12 @@
 <script>
 export default {
     name: 'YNav',
+    props: {
+        selected: {
+            type: Array,
+            default: () => []
+        },
+    }
 }
 </script>
 

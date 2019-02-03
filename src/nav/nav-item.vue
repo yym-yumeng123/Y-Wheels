@@ -7,6 +7,12 @@
 <script>
 export default {
     name: 'YNavItem',
+    props: {
+        name: {
+            type: String,
+            required: true
+        }
+    }
 }
 </script>
 
