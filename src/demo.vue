@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-		<y-slides :selected.sync="selected" :autoPlayDelay="1000" :autoPlay="false">
+		<y-slides :selected.sync="selected" :autoPlayDelay="3000" :autoPlay="true">
 			<y-slides-item name="1">
         <div class="box">1</div>
       </y-slides-item>
