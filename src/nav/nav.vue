@@ -12,11 +12,57 @@ export default {
             type: Array,
             default: () => []
         },
+        multiple: {
+            type: Boolean,
+            dafault: false
+        }
+    },
+    mounted () {
+        this.updateChildren()
+        this.listenToChildren()
+    },
+    updated () {
+        this.updateChildren()
+    },
+    computed: {
+        items () {
+            return this.$children.filter(vm => vm.$options.name === 'YNavItem')
+        },
+    },
+    methods : {
+        updateChildren () {
+            this.items.forEach((vm) => {
+                if (this.selected.indexOf(vm.name) >= 0) {
+                    vm.selected = true
+                } else {
+                    vm.selected = false
+                }
+            })
+        },
+        listenToChildren () {
+            this.items.forEach(vm => {
+                vm.$on('add:selected', (name) => {
+                    if(this.multiple) {
+                        if (this.selected.indexOf(name) < 0) {
+                            // 不能直接修改 props, 深拷贝
+                            let copy = JSON.parse(JSON.stringify(this.selected))
+                            copy.push(name)
+                            this.$emit('update:selected',copy)
+                        }
+                    } else {
+                        this.$emit('update:selected', [name])
+                    }
+                })
+            })
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
+    .y-nav {
+        display: flex;
+        border: 1px solid red;
+    }
 </style>
 

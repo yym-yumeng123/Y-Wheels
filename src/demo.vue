@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-    <y-nav :selected="selected">
+    <y-nav :selected.sync="selected">
       <y-nav-item name="home">首页</y-nav-item>
       <y-nav-item name="hire">招聘</y-nav-item>
       <y-nav-item name="about">关于</y-nav-item>
@@ -34,6 +34,6 @@ export default {
 *{margin: 0;padding: 0;}
 *, *::after, *::before{box-sizing: border-box;}
 html {
-  font-size: 12px;
+  font-size: 14px;
 }
 </style>

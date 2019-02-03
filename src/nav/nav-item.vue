@@ -1,5 +1,7 @@
 <template>
-    <div class="y-nav-item">
+    <div class="y-nav-item" :class="{active: selected}"
+        @click="onClickItem"
+    >
         <slot></slot>
     </div>
 </template>
@@ -12,11 +14,29 @@ export default {
             type: String,
             required: true
         }
+    },
+    data () {
+        return {
+            selected: false
+        }
+    },
+    mounted () {
+
+    },
+    methods : {
+        onClickItem () {
+            this.$emit('add:selected',this.name)
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
+    .y-nav-item {
+        padding: 10px 20px;
+        &.active {
+            background: red;
+        }
+    }
 </style>
 
