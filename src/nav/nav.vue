@@ -41,6 +41,8 @@ export default {
         },
         listenToChildren () {
             this.items.forEach(vm => {
+                console.log(vm);
+                
                 vm.$on('add:selected', (name) => {
                     if(this.multiple) {
                         if (this.selected.indexOf(name) < 0) {
