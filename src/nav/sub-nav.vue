@@ -31,8 +31,7 @@ export default {
     .y-sub-nav {
         position: relative;
         > span {
-            display: inline-block;
-            vertical-align: top;
+            display: block;
             padding: 10px 20px;
         }
         &-popover {
@@ -42,6 +41,12 @@ export default {
             border: 1px solid green;
             white-space: nowrap;
         }
+    }
+    .y-sub-nav .y-sub-nav .y-sub-nav-popover {
+        background:#ccc;
+        top: 0;
+        left: 100%;
+        margin-left: 8px;
     }
 </style>
 
