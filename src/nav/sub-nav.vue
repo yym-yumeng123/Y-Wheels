@@ -28,6 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import "var";
     .y-sub-nav {
         position: relative;
         > span {
@@ -38,12 +39,16 @@ export default {
             position: absolute;
             top: 100%;
             left: 0;
-            border: 1px solid green;
             white-space: nowrap;
+            margin-top: 4px;
+            background: #fff;
+            box-shadow: 0 0 3px fade-out( #000, .8);
+            color: $light-color;
+            font-size: $font-size;
+            min-width: 8em;
         }
     }
     .y-sub-nav .y-sub-nav .y-sub-nav-popover {
-        background:#ccc;
         top: 0;
         left: 100%;
         margin-left: 8px;

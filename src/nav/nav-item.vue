@@ -36,10 +36,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import "var";
     .y-nav-item {
+        position: relative;
         padding: 10px 20px;
         &.active {
-            background: red;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-bottom: 2px solid $border-bottom-color;
+                width: 100%;
+            }
+        }
+    }
+    .y-sub-nav .y-nav-item {
+        &.active {
+            background: $grey;
+            color: $color;
+            &::after {
+                display: none;
+            }
         }
     }
 </style>
