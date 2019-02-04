@@ -7,6 +7,16 @@
 <script>
 export default {
     name: 'YNav',
+    provide () {
+        return {
+            root: this
+        }
+    },
+    data () {
+        return {
+            items: []
+        }
+    },
     props: {
         selected: {
             type: Array,
@@ -24,12 +34,10 @@ export default {
     updated () {
         this.updateChildren()
     },
-    computed: {
-        items () {
-            return this.$children.filter(vm => vm.$options.name === 'YNavItem')
-        },
-    },
     methods : {
+        addItem (vm) {
+            this.items.push(vm)
+        },
         updateChildren () {
             this.items.forEach((vm) => {
                 if (this.selected.indexOf(vm.name) >= 0) {
@@ -41,8 +49,6 @@ export default {
         },
         listenToChildren () {
             this.items.forEach(vm => {
-                console.log(vm);
-                
                 vm.$on('add:selected', (name) => {
                     if(this.multiple) {
                         if (this.selected.indexOf(name) < 0) {

@@ -9,6 +9,7 @@
 <script>
 export default {
     name: 'YNavItem',
+    inject:['root'],
     props: {
         name: {
             type: String,
@@ -19,6 +20,9 @@ export default {
         return {
             selected: false
         }
+    },
+    created () {
+        this.root.addItem(this)
     },
     mounted () {
 
