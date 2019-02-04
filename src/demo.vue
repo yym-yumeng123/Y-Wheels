@@ -2,11 +2,11 @@
   <div style="padding: 20px">
     <y-nav :selected.sync="selected">
       <y-nav-item name="home">首页</y-nav-item>
-      <y-sub-nav>
+      <y-sub-nav name="about">
         <template slot="title">关于</template>
         <y-nav-item name="culture">企业文化</y-nav-item>
         <y-nav-item name="developers">开发团队</y-nav-item>
-        <y-sub-nav>
+        <y-sub-nav name="contanct">
           <template slot="title">联系方式</template>
           <y-nav-item name="wechat">微信</y-nav-item>
           <y-nav-item name="qq">QQ</y-nav-item>

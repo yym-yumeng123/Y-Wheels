@@ -1,5 +1,5 @@
 <template>
-    <div class="y-sub-nav">
+    <div class="y-sub-nav" :class="{actived}" v-click-outside="close">
         <span class="y-sub-nav-title" @click="onClick">
             <slot name="title"></slot>
         </span>
@@ -12,16 +12,42 @@
 </template>
 
 <script>
+import ClickOutside from '../click-outside'
 export default {
     name: 'YSubNav',
+    directives: {ClickOutside},
+    inject: ['root'],
+    props: {
+        name: {
+            type: String,
+            required: true
+        }
+    },
     data () {
         return {
-            open: false
+            open: false,
+        }
+    },
+    computed: {
+        actived () {
+            return this.root.namePath.indexOf(this.name) >= 0 ? true : false
         }
     },
     methods: {
+        close () {
+            this.open = false
+        },
         onClick () {
             this.open = !this.open
+        },
+        updateNamePath () {
+            this.active = true
+            this.root.namePath.unshift(this.name)
+            if (this.$parent.updateNamePath) {
+                this.$parent.updateNamePath()
+            } else {
+
+            }
         }
     }
 }
@@ -31,6 +57,16 @@ export default {
     @import "var";
     .y-sub-nav {
         position: relative;
+        &.actived {
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-bottom: 2px solid $border-bottom-color;
+                width: 100%;
+            }
+        }
         > span {
             display: block;
             padding: 10px 20px;
