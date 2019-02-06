@@ -9,9 +9,11 @@
         </span>
         <!-- v-if 让元素出现 / 不出现在页面 v-show 加 style 一直在页面-->
         <!-- v-if true / created false / destroy , v-show 只改 style -->
-        <div class="y-sub-nav-popover" v-show="open">
-            <slot></slot>
-        </div>
+        <transition name="fade" @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
+            <div class="y-sub-nav-popover" v-show="open" :class="{vertical}">
+                <slot></slot>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -22,7 +24,7 @@ export default {
     name: 'YSubNav',
     directives: {ClickOutside},
     components: {YIcon},
-    inject: ['root'],
+    inject: ['root', 'vertical'],
     props: {
         name: {
             type: String,
@@ -40,6 +42,30 @@ export default {
         }
     },
     methods: {
+        enter (el, done) {
+            let {height} = el.getBoundingClientRect()
+            el.style.height = 0
+            el.getBoundingClientRect()
+            el.style.height = `${height}px`
+            el.addEventListener('transitionend', () => {
+                done()
+            })
+        },
+        afterEnter (el) {
+            el.style.height = 'auto'
+        },
+        leave (el, done) {
+            let {height} = el.getBoundingClientRect()
+            el.style.height = `${height}px`
+            el.getBoundingClientRect()
+            el.style.height = 0
+            el.addEventListener('transitionend', () => {
+                done()
+            })
+        },
+        afterLeave (el) {
+            el.style.height = 'auto'
+        },
         close () {
             this.open = false
         },
@@ -91,6 +117,14 @@ export default {
             color: $light-color;
             font-size: $font-size;
             min-width: 8em;
+            &.vertical {
+                position: static;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                transition: height 400ms;
+                overflow: hidden;
+            }
         }
     }
     .y-sub-nav .y-sub-nav{

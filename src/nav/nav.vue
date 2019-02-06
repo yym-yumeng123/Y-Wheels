@@ -1,5 +1,5 @@
 <template>
-    <div class="y-nav">
+    <div class="y-nav" :class="{vertical: vertical}">
         <slot></slot>
     </div>
 </template>
@@ -9,7 +9,8 @@ export default {
     name: 'YNav',
     provide () {
         return {
-            root: this
+            root: this,
+            vertical: this.vertical
         }
     },
     data () {
@@ -26,6 +27,10 @@ export default {
         multiple: {
             type: Boolean,
             dafault: false
+        },
+        vertical: {
+            type: Boolean,
+            default: false
         }
     },
     mounted () {
@@ -76,6 +81,10 @@ export default {
         color: $color;
         cursor: pointer;
         user-select: none;
+        &.vertical {
+            flex-direction: column;
+            border: 1px solid $grey;
+        }
     }
 </style>
 
