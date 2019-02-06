@@ -9,11 +9,18 @@
         </span>
         <!-- v-if 让元素出现 / 不出现在页面 v-show 加 style 一直在页面-->
         <!-- v-if true / created false / destroy , v-show 只改 style -->
-        <transition name="fade" @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
-            <div class="y-sub-nav-popover" v-show="open" :class="{vertical}">
+        <template v-if="vertical">
+            <transition name="fade" @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
+                <div class="y-sub-nav-popover" v-show="open" :class="{vertical}">
+                    <slot></slot>
+                </div>
+            </transition>
+        </template>
+        <template v-else>
+            <div class="y-sub-nav-popover" v-show="open">
                 <slot></slot>
             </div>
-        </transition>
+        </template>
     </div>
 </template>
 
@@ -107,6 +114,7 @@ export default {
             display: none;
         }
         &-popover {
+            transition: height 400ms;
             position: absolute;
             top: 100%;
             left: 0;
@@ -122,7 +130,6 @@ export default {
                 border-radius: 0;
                 border: none;
                 box-shadow: none;
-                transition: height 400ms;
                 overflow: hidden;
             }
         }
