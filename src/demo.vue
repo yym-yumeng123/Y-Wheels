@@ -17,7 +17,9 @@
       </y-sub-nav>
       <y-nav-item name="hire">招聘</y-nav-item>
     </y-nav>
+    {{selected}}
   </div>
+
 </template>
 
 <script>
@@ -40,6 +42,13 @@ export default {
   methods: {
     onChange (selected) {
       if (selected.indexOf('home') >= 0) {
+        alert('hi')
+      }
+    }
+  },
+  watch: {
+    selected (newValue) {
+      if (newValue.indexOf('home') >= 0) {
         alert('hi')
       }
     }
