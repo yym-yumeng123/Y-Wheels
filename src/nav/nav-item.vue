@@ -1,5 +1,5 @@
 <template>
-    <div class="y-nav-item" :class="{active: selected}"
+    <div class="y-nav-item" :class="{active: selected, vertical}"
         @click="onClickItem"
     >
         <slot></slot>
@@ -9,7 +9,7 @@
 <script>
 export default {
     name: 'YNavItem',
-    inject:['root'],
+    inject:['root', 'vertical'],
     props: {
         name: {
             type: String,
@@ -42,18 +42,29 @@ export default {
     .y-nav-item {
         position: relative;
         padding: 10px 20px;
-        &.active {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                border-bottom: 2px solid $border-bottom-color;
-                width: 100%;
+        &:not(.vertical) {
+            &.active {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-bottom: 2px solid $border-bottom-color;
+                    width: 100%;
+                }
+            }   
+        }
+        &.vertical {
+            &.active {
+                color: $border-bottom-color;
             }
         }
     }
-    .y-sub-nav .y-nav-item {
+    a {
+        color: inherit;
+        // text-decoration: none;
+    }
+    .y-sub-nav .y-nav-item:not(.vertical) {
         &.active {
             background: $grey;
             color: $color;

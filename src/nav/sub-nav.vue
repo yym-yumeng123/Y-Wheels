@@ -1,8 +1,8 @@
 <template>
-    <div class="y-sub-nav" :class="{actived}" v-click-outside="close">
+    <div class="y-sub-nav" :class="{actived, vertical}" v-click-outside="close">
         <span class="y-sub-nav-label" @click="onClick">
             <slot name="title"></slot>
-            <span class="y-sub-nav-icon" :class="{open}">
+            <span class="y-sub-nav-icon" :class="{open,vertical}">
                 <y-icon name="right"></y-icon>
             </span>
 
@@ -96,14 +96,16 @@ export default {
     @import "var";
     .y-sub-nav {
         position: relative;
-        &.actived {
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                border-bottom: 2px solid $border-bottom-color;
-                width: 100%;
+        &:not(.vertical) {
+            &.actived {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-bottom: 2px solid $border-bottom-color;
+                    width: 100%;
+                }
             }
         }
         &-label {
@@ -156,6 +158,12 @@ export default {
             transition: transform 300ms;
             svg {
                 fill: $light-color;
+            }
+            &.vertical {
+                transform: rotate(90deg);
+                &.open {
+                    transform: rotate(270deg);
+                }
             }
             &.open {
                 transform: rotate(180deg);

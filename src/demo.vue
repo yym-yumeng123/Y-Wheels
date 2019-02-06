@@ -1,7 +1,9 @@
 <template>
   <div style="padding: 20px">
     <y-nav :selected.sync="selected" vertical>
-      <y-nav-item name="home">首页</y-nav-item>
+      <y-nav-item name="home">
+        <a href="https://www.baidu.com" target="_blank">首页</a>
+      </y-nav-item>
       <y-sub-nav name="about">
         <template slot="title">关于</template>
         <y-nav-item name="culture">企业文化</y-nav-item>
