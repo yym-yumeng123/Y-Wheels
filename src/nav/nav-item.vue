@@ -1,6 +1,7 @@
 <template>
     <div class="y-nav-item" :class="{active: selected, vertical}"
         @click="onClickItem"
+        :data-name="name"
     >
         <slot></slot>
     </div>
