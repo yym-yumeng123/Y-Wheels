@@ -1487,4 +1487,4 @@ button_group_component.options.__file = "button-group.vue"
 /***/ })
 
 /******/ });
-//# sourceMappingURL=ymWheels.common.js.map
+//# sourceMappingURL=ymwheels.common.js.map

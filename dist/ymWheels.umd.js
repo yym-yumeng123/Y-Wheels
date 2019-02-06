@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["ymWheels"] = factory();
+		exports["ymwheels"] = factory();
 	else
-		root["ymWheels"] = factory();
+		root["ymwheels"] = factory();
 })((typeof self !== 'undefined' ? self : this), function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -1497,4 +1497,4 @@ button_group_component.options.__file = "button-group.vue"
 
 /******/ });
 });
-//# sourceMappingURL=ymWheels.umd.js.map
+//# sourceMappingURL=ymwheels.umd.js.map
