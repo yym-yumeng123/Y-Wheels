@@ -1,8 +1,7 @@
 {
-  "name": "vue-element-ym",
-  "version": "0.1.0",
+  "name": "ymwheels",
+  "version": "0.0.3",
   "description": "这是一个Vue-UI框架",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
