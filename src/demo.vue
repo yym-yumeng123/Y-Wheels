@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-    <y-nav :selected.sync="selected" @update:selected="onChange">
+    <y-nav :selected.sync="selected" @update:selected="onChange" vertical>
       <y-nav-item name="home">
         <a href="https://www.baidu.com" target="_blank">首页</a>
       </y-nav-item>
@@ -36,21 +36,16 @@ export default {
   },
   data() {
     return {
-      selected: ['home']
+      selected: 'home'
     }
   },
   methods: {
     onChange (selected) {
-      if (selected.indexOf('home') >= 0) {
-        alert('hi')
-      }
     }
   },
   watch: {
     selected (newValue) {
-      if (newValue.indexOf('home') >= 0) {
-        alert('hi')
-      }
+
     }
   },
   created() {
