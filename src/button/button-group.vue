@@ -1,5 +1,7 @@
 <template>
-  <div class="g-button-group"><slot></slot></div>
+  <div class="y-button-group">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -10,7 +12,7 @@ export default {
       let name = node.nodeName.toLowerCase();
       if (name !== "button") {
         console.warn(
-          `g-button-group 的子元素应该全是 g-button, 但是你写的是${name}`
+          `y-button-group 的子元素应该全是 y-button, 但是你写的是${name}`
         );
       }
     }
@@ -19,10 +21,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.g-button-group {
+.y-button-group {
   display: inline-flex;
   vertical-align: middle;
-  > .g-button {
+  > .y-button {
     border-radius: 0;
     &:not(:first-child) {
       margin-left: -1px;

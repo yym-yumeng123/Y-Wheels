@@ -1,13 +1,13 @@
 <template>
   <!-- 触发click事件 -->
   <button
-    class="g-button yym"
+    class="y-button yym"
     :class="{ [`icon-${iconPosition}`]: true }"
     @click="$emit('click')"
   >
     <!-- v-if=icon : 是否出现icon -->
-    <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
-    <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
+    <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
+    <y-icon class="loading icon" v-if="loading" name="loading"></y-icon>
     <div class="content-wrapper"><slot></slot></div>
   </button>
 </template>
@@ -17,7 +17,7 @@ import Icon from "../icon/icon";
 export default {
   name: "ElementButton",
   components: {
-    "g-icon": Icon
+    "y-icon": Icon
   },
   // props: ['icon', 'iconPosition']
   props: {
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "var";
-.g-button {
+.y-button {
   font-size: $font-size;
   height: $button-height;
   padding: 0 1em;
