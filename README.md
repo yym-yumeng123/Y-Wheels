@@ -13,29 +13,16 @@
     ```
         *, *::after, *::before{box-sizing: border-box;}
     ```
-    你还需要设置默认默认颜色等变量 (后续改为 scss 变量)
+
+2. 安装 `ymwheels`
     ```
-        // 兼容性: IE15 及以上浏览器支持, chrome & firefox 支持
-        :root {
-            --button-height: 32px;
-            --font-size: 14px;
-            --button-bg: white;
-            --button-active-bg: #eee;
-            --border-radius: 4px;
-            --color: #333;
-            --border-color: #999;
-            --border-color-hover: #666;
-        }
-    ```
-2. 安装 `vue-element-ym`
-    ```
-        npm install --save vue-element-ym
+        npm i ymwheels
     ```
 
-3. 引入 `vue-element-ym`
+3. 引入 `ymwheels`
     ```
-        import { Button, ButtonGroup, Icon} from vue-element-ym'
-        import 'vue-element-ym/dist/index.css'
+        import {YButton,YButtonGroup,YIcon} from 'ymwheels'
+        import 'ymwheels/dist/ymwheels.css'
 
         export default {
             name: 'app',
