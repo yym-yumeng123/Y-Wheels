@@ -12,6 +12,9 @@
         <y-button icon="download">
             下载
         </y-button>
+        <y-button icon="download" disabled>
+            下载1
+        </y-button>
 
         <y-button-group>
             <y-button icon="left">上一页</y-button>

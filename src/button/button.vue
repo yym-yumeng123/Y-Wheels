@@ -4,11 +4,14 @@
     class="y-button yym"
     :class="{ [`icon-${iconPosition}`]: true }"
     @click="$emit('click')"
+    :disabled="disabled"
   >
     <!-- v-if=icon : 是否出现icon -->
     <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
     <y-icon class="loading icon" v-if="loading" name="loading"></y-icon>
-    <div class="content-wrapper"><slot></slot></div>
+    <div class="content-wrapper">
+      <slot></slot>
+    </div>
   </button>
 </template>
 
@@ -33,6 +36,9 @@ export default {
       validator(value) {
         return value === "left" || value === "right";
       }
+    },
+    disabled: {
+      type: Boolean,
     }
   }
 };
