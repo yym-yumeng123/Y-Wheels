@@ -45,50 +45,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "var";
-.y-button {
-  font-size: $font-size;
-  height: $button-height;
-  padding: 0 1em;
-  border-radius: $border-radius;
-  border: 1px solid $border-color;
-  background: $border-bg;
+@import "var.scss";
+  .y-button {
+    font-size: $font-size;
+    height: $button-height;
+    padding: 0 1em;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+    background: $border-bg;
 
-  // 设置icon左右
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
+    // 设置icon左右
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
 
-  &:hover {
-    border-color: $border-color-hover;
-  }
-  &:active {
-    background-color: $button-active-bg;
-  }
-  &:focus {
-    outline: none;
-  }
+    &:hover {
+      border-color: $border-color-hover;
+    }
+    &:active {
+      background-color: $button-active-bg;
+    }
+    &:focus {
+      outline: none;
+    }
 
-  > .content-wrapper {
-    order: 2;
-  }
-  > .icon {
-    order: 1;
-    margin-right: 0.3em;
-  }
-  &.icon-right {
     > .content-wrapper {
-      order: 1;
+      order: 2;
     }
     > .icon {
-      order: 2;
-      margin-left: 0.3em;
-      margin-right: 0;
+      order: 1;
+      margin-right: 0.3em;
+    }
+    &.icon-right {
+      > .content-wrapper {
+        order: 1;
+      }
+      > .icon {
+        order: 2;
+        margin-left: 0.3em;
+        margin-right: 0;
+      }
+    }
+    .loading {
+      animation: spin 1s linear infinite;
     }
   }
-  .loading {
-    animation: spin 1s linear infinite;
-  }
-}
 </style>
