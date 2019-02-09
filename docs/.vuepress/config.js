@@ -1,4 +1,5 @@
 module.exports = {
+    base: '/Y-Wheels/',
     title: 'ymwheels UI',
     description: '一个好用的UI框架',
     themeConfig: {
