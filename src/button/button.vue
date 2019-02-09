@@ -2,9 +2,8 @@
   <!-- 触发click事件 -->
   <button
     class="y-button yym"
-    :class="{ [`icon-${iconPosition}`]: true }"
+    :class="{ [`icon-${iconPosition}`]: true, disabled }"
     @click="$emit('click')"
-    :disabled="disabled"
   >
     <!-- v-if=icon : 是否出现icon -->
     <y-icon class="icon" v-if="icon && !loading" :name="icon"></y-icon>
@@ -45,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "var.scss";
+@import "../../styles/var";
   .y-button {
     font-size: $font-size;
     height: $button-height;
@@ -76,6 +75,15 @@ export default {
     > .icon {
       order: 1;
       margin-right: 0.3em;
+    }
+    &.disabled {
+      background-color: #fff;
+      color: #c0c4cc;
+      border-color: #ebeef5;
+      cursor: not-allowed;
+      &:hover {
+        border-color: none;
+      }
     }
     &.icon-right {
       > .content-wrapper {
