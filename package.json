@@ -1,6 +1,6 @@
 {
   "name": "ymwheels",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "这是一个Vue-UI框架",
   "main": "dist/ymwheels.umd.min.js",
   "scripts": {
