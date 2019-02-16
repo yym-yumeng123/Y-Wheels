@@ -34,7 +34,7 @@
     "sinon": "^6.1.5",
     "sinon-chai": "^3.2.0",
     "vue-server-renderer": "^2.6.4",
-    "vue-template-compiler": "^2.5.21",
+    "vue-template-compiler": "^2.6.4",
     "vuepress": "^0.14.8"
   },
   "postcss": {
