@@ -1,6 +1,8 @@
 <template>
     <div class="y-pager">
-        <span v-for="(page,index) in pages" :key="index">
+        <span v-for="(page,index) in pages" :key="index" class="y-pager-item"
+            :class="{active: page === currentPage, separtor: page === '...'}"
+        >
             {{ page }}
         </span>
     </div>
@@ -54,7 +56,31 @@ function unique(array) {
 </script>
 
 <style lang="scss" scoped>
-
+@import 'var';
+.y-pager {
+    &-item {
+        border: 1px solid #e1e1e1;
+        border-radius: $border-radius;
+        padding: 0 4px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        min-width: 20px;
+        height: 20px;
+        margin: 0 4px;
+        cursor: pointer;
+        &.separtor {
+            border: none;
+        }
+        &.active, &:hover {
+            border-color: $border-bottom-color;
+        }
+        &.active {
+            cursor: default;
+        }
+    }
+    
+}
 </style>
 
 

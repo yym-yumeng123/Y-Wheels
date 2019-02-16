@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-        <y-pager :total-page="20" :current-page="10"></y-pager>
+        <y-pager :total-page="20" :current-page="3"></y-pager>
   </div>
 
 </template>
