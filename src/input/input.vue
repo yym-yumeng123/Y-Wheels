@@ -12,24 +12,24 @@
       @blur="$emit('blur', $event.target.value)"
     />
     <template v-if="error">
-      <icon name="error" class="icon-error"></icon>
+      <y-icon name="error" class="icon-error"></y-icon>
       <span class="errorMessage">{{ error }}</span>
     </template>
   </div>
 </template>
 
 <script>
-import Icon from "../icon/icon";
+import YIcon from "../icon/icon";
 export default {
   components: {
-    Icon
+    YIcon
   },
   name: "ElementInput", // 使用 vue 开发者工具 给组件命名
   // props: ['value']
   props: {
     value: {
       type: String,
-      default: "请输入..."
+      default: "请输入内容"
     },
     disabled: {
       type: Boolean,
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "var";
+@import "../../styles/var";
 .wrapper {
   font-size: $font-size;
   display: inline-flex;

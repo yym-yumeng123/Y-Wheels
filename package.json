@@ -1,6 +1,6 @@
 {
   "name": "ymwheels",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "这是一个Vue-UI框架",
   "main": "dist/ymwheels.umd.min.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "vue": "^2.6.4"
+    "vue": "^2.6.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",
@@ -33,8 +33,8 @@
     "sass-loader": "^7.0.1",
     "sinon": "^6.1.5",
     "sinon-chai": "^3.2.0",
-    "vue-server-renderer": "^2.6.4",
-    "vue-template-compiler": "^2.6.4",
+    "vue-server-renderer": "^2.6.6",
+    "vue-template-compiler": "^2.6.6",
     "vuepress": "^0.14.8"
   },
   "postcss": {
