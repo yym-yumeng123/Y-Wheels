@@ -1,5 +1,8 @@
 <template>
     <div class="y-pager">
+        <span class="y-pager-nav prev" :class="{disabled: currentPage === 1}">
+            <y-icon name="left"></y-icon>
+        </span>
         <template v-for="(page,index) in pages">
             <template v-if="page === currentPage">
                 <span class="y-pager-item active" :key="index">{{page}}</span>
@@ -11,6 +14,9 @@
                 <span class="y-pager-item other" :key="index">{{page}}</span>
             </template>
         </template>
+        <span class="y-pager-nav next" :class="{disabled: currentPage === totalPage}">
+            <y-icon name="right"></y-icon>
+        </span>
     </div>
 </template>
 
@@ -38,8 +44,13 @@ export default {
     },
     data () {
         let pages = [1, this.totalPage, this.currentPage, this.currentPage -1, this.currentPage -2, this.currentPage + 1, this.currentPage + 2]
+        // 过滤 -1. 0
+        let filterPage = pages.filter((n) => {
+            return n >= 1 && n <= this.totalPage
+        })
+        console.log(filterPage)
         // 排序数组并去重
-        let u = unique(pages.sort((a, b) => a - b))
+        let u = unique(filterPage.sort((a, b) => a - b))
         // 插入 ...
         let u2 = u.reduce((prev, current, index, array) => {
             if (array[index+1] !== undefined && array[index+1] - u[index] > 1) {
@@ -68,13 +79,16 @@ function unique(array) {
 
 <style lang="scss" scoped>
 @import 'var';
+$width: 20px;
+$height: 20px;
+$font-size: 12px;
 .y-pager {
     display: flex;
     justify-content: center;
     align-items: center;
     &.separtor {
-        width: 20px;
-        font-size: 12px;
+        width: $width;
+        font-size: $font-size;
     }
     &-item {
         border: 1px solid #e1e1e1;
@@ -82,9 +96,9 @@ function unique(array) {
         padding: 0 4px;
         display: inline-flex;
         align-items: center;
-        font-size: 12px;
-        min-width: 20px;
-        height: 20px;
+        font-size: $font-size;
+        min-width: $width;
+        height: $height;
         margin: 0 4px;
         cursor: pointer;
 
@@ -93,6 +107,20 @@ function unique(array) {
         }
         &.active {
             cursor: default;
+        }
+    }
+    &-nav {
+        margin: 0 4px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: $width;
+        height: $height;
+        border: 1px solid #e1e1e1;
+        border-radius: $border-radius;
+        font-size: $font-size;
+        &.disabled {
+            cursor: not-allowed;
         }
     }
     
