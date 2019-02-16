@@ -1,6 +1,7 @@
 # Y-Wheels  - 一个个人Vue UI组件
 
 [![Build Status](https://travis-ci.org/yym-yumeng123/Y-Wheels.svg?branch=master)](https://travis-ci.org/yym-yumeng123/Y-Wheels)
+<a href="https://www.npmjs.com/package/ymwheels"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 
 ## 介绍
 
