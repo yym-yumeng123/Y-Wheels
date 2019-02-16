@@ -1,5 +1,5 @@
 <template>
-    <div class="y-pager">
+    <div class="y-pager" :class="{hide: hideIfOnePage === true && totalPage <= 1}">
         <span class="y-pager-nav prev" :class="{disabled: currentPage === 1}" 
             @click="onClickPage(currentPage - 1)"
         >
@@ -95,9 +95,13 @@ $width: 20px;
 $height: 20px;
 $font-size: 12px;
 .y-pager {
+    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    &.hide {
+        display:none;
+    }
     &.separtor {
         width: $width;
         font-size: $font-size;
