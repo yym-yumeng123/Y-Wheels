@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-        <y-pager :total-page="20" :current-page="1"></y-pager>
+        <y-pager :total-page="20" :current-page.sync="currentPage"></y-pager>
   </div>
 
 </template>
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      
+      currentPage: 1
     }
   },
   methods: {

@@ -11,7 +11,7 @@
                 <y-icon class="y-pager-separtor" name="dots" :key="index">...</y-icon>
             </template>
             <template v-else>
-                <span class="y-pager-item other" :key="index">{{page}}</span>
+                <span class="y-pager-item other" :key="index" @click="onClickPage(page)">{{page}}</span>
             </template>
         </template>
         <span class="y-pager-nav next" :class="{disabled: currentPage === totalPage}">
@@ -48,7 +48,6 @@ export default {
         let filterPage = pages.filter((n) => {
             return n >= 1 && n <= this.totalPage
         })
-        console.log(filterPage)
         // 排序数组并去重
         let u = unique(filterPage.sort((a, b) => a - b))
         // 插入 ...
@@ -63,6 +62,11 @@ export default {
         }, [])
         return {
             pages: u2
+        }
+    },
+    methods : {
+        onClickPage (n) {
+            this.$emit('update:currentPage', n)
         }
     }
 }
