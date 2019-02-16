@@ -1,6 +1,8 @@
 <template>
     <div class="y-pager">
-        <span class="y-pager-nav prev" :class="{disabled: currentPage === 1}">
+        <span class="y-pager-nav prev" :class="{disabled: currentPage === 1}" 
+            @click="onClickPage(currentPage - 1)"
+        >
             <y-icon name="left"></y-icon>
         </span>
         <template v-for="(page,index) in pages">
@@ -14,7 +16,9 @@
                 <span class="y-pager-item other" :key="index" @click="onClickPage(page)">{{page}}</span>
             </template>
         </template>
-        <span class="y-pager-nav next" :class="{disabled: currentPage === totalPage}">
+        <span class="y-pager-nav next" :class="{disabled: currentPage === totalPage}"
+            @click="onClickPage(currentPage + 1)"
+        >
             <y-icon name="right"></y-icon>
         </span>
     </div>
@@ -42,31 +46,35 @@ export default {
             default: true
         }
     },
-    data () {
-        let pages = [1, this.totalPage, this.currentPage, this.currentPage -1, this.currentPage -2, this.currentPage + 1, this.currentPage + 2]
-        // 过滤 -1. 0
-        let filterPage = pages.filter((n) => {
-            return n >= 1 && n <= this.totalPage
-        })
-        // 排序数组并去重
-        let u = unique(filterPage.sort((a, b) => a - b))
-        // 插入 ...
-        let u2 = u.reduce((prev, current, index, array) => {
-            if (array[index+1] !== undefined && array[index+1] - u[index] > 1) {
-                prev.push(current)
-                prev.push('...')
-            } else {
-                prev.push(current)
-            }
-            return prev
-        }, [])
-        return {
-            pages: u2
+    computed : {
+        pages () {
+            let pages = [1, this.totalPage, this.currentPage, this.currentPage -1, this.currentPage -2, this.currentPage + 1, this.currentPage + 2]
+            // 过滤 -1. 0
+            let filterPage = pages.filter((n) => {
+                return n >= 1 && n <= this.totalPage
+            })
+            // 排序数组并去重
+            let u = unique(filterPage.sort((a, b) => a - b))
+            // 插入 ...
+            let u2 = u.reduce((prev, current, index, array) => {
+                if (array[index+1] !== undefined && array[index+1] - u[index] > 1) {
+                    prev.push(current)
+                    prev.push('...')
+                } else {
+                    prev.push(current)
+                }
+                return prev
+            }, [])
+            return u2
         }
     },
     methods : {
         onClickPage (n) {
-            this.$emit('update:currentPage', n)
+            // 边界情况判断
+            if (n >= 1 && n <= this.totalPage) {
+                this.$emit('update:currentPage', n)
+            }
+            
         }
     }
 }
