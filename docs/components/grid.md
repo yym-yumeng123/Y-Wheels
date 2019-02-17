@@ -13,6 +13,9 @@ title: Grid 网格系统
 <y-grid></y-grid>
 </ClientOnly>
 
+
+#### 代码展示
+
 ```html
 <h3>基础布局</h3>
 <y-row class="demo-row">

@@ -25,6 +25,9 @@ title: Layout 布局
 <y-layout></y-layout>
 </ClientOnly>
 
+
+#### 代码展示
+
 ```html
 <y-layout class="layout">
     <y-header class="header">header</y-header>

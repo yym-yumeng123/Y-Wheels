@@ -7,6 +7,9 @@ title: Toast 消息弹出
 <y-toast></y-toast>
 </ClientOnly>
 
+
+#### 代码展示
+
 ```html
 <h3>基础用法</h3>
 <y-button @click="showToastTop">上方弹出</y-button>

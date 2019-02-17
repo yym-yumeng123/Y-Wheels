@@ -16,6 +16,8 @@ title: Input 输入框
 </ClientOnly>
 
 
+#### 代码展示
+
 ```html{9}
 <h4>基础用法</h4>
 <y-input></y-input>

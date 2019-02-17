@@ -1,26 +1,26 @@
 <template>
   <div style="padding: 20px">
-  <y-row>
-		<y-col span="23" offset="1" :narrow-pc="{span:12, offset:12}">
-			<div class="demo"></div>
-		</y-col>
-  </y-row>
+      <y-collapse>
+        <y-collapse-item title="标题一">内容一</y-collapse-item>
+        <y-collapse-item title="标题二">内容二</y-collapse-item>
+        <y-collapse-item title="标题三">内容三</y-collapse-item>
+      </y-collapse>
   </div>
 
 </template>
 
 <script>
-import YRow from './grid/row'
-import YCol from './grid/col'
+import YCollapse from './collapse/collapse'
+import YCollapseItem from './collapse/collapse-item'
 
 export default {
   name: "demo",
   components: {
-    YRow, YCol
+    YCollapse,YCollapseItem
   },
   data() {
     return {
-
+selected: 'sports'
     }
   },
   methods: {

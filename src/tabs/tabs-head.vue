@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-head">
+  <div class="tabs-head" ref="head">
     <slot></slot>
     <div class="line" ref="line" v-if="x"></div>
     <!-- v-if 会控制 div 是否显示在 DOM 里 -->
@@ -24,8 +24,9 @@ export default {
       // 渲染到 UI 之后
       this.$nextTick(() => {
         let { width, height, top, left } = vm.$el.getBoundingClientRect();
+        let {left: left2} = this.$refs.head.getBoundingClientRect()
         this.$refs.line.style.width = `${width}px`;
-        this.$refs.line.style.left = `${left}px`;
+        this.$refs.line.style.left = `${left - left2}px`
       });
     });
   }
@@ -33,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$blue: blue;
+$blue: #409EFF;
 $tab-height: 40px;
 $border-color: #ddd;
 .tabs-head {

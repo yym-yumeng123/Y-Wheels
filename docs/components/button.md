@@ -12,6 +12,7 @@ title: Button 按钮
 <y-button></y-button>
 </ClientOnly>
 
+#### 代码展示
 
 ```html
 <y-button>普通按钮</y-button>

@@ -14,6 +14,9 @@ title: Icon 图标
 <y-icon></y-icon>
 </ClientOnly>
 
+
+#### 代码展示
+
 ```html
 
 <y-button>
