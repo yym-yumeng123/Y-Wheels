@@ -1,5 +1,7 @@
 <template>
-  <div class="row" :style="rowStyle" :class="rowClass"><slot></slot></div>
+  <div class="row" :style="rowStyle" :class="rowClass">
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {

@@ -20,7 +20,7 @@ export default {
   props: {
     autoClose: {
       type: [Boolean, Number],
-      default: 5,
+      default: 3,
       validator(value) {
         return value === false || typeof value === "number";
       }
@@ -132,6 +132,7 @@ $animation-duration: 500ms;
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 30;
   &.position-top {
     top: 0;
     .toast {

@@ -1,5 +1,7 @@
 <template>
-  <div class="col" :class="colClass" :style="colStyle"><slot></slot></div>
+  <div class="col" :class="colClass" :style="colStyle">
+    <slot></slot>
+  </div>
 </template>
 <script>
 let validator = value => {

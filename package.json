@@ -5,7 +5,6 @@
   "main": "dist/ymwheels.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib --name ymwheels src/index.js",
     "test": "karma start --single-run",
     "test:unit": "karma start",

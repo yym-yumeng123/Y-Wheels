@@ -1,45 +1,30 @@
 <template>
   <div style="padding: 20px">
-        <y-pager :total-page="10" :current-page.sync="currentPage" :hide-if-one-page="false"></y-pager>
-
-
-        <y-input></y-input>
-        <y-input value="readonly只读" readonly></y-input>
-        <y-input value="不可点击" disabled></y-input>
-
-        <y-input error="姓名不能少于两个字" value="ni"></y-input>
-
-        <y-input value="change事件" @change="inputChange"></y-input>
-
-        <div>
-            <y-input v-model="message"></y-input>
-            <p>{{ message }}</p>
-            <y-button @click="message += 1">点击 +1</y-button>
-        </div>
+  <y-row>
+		<y-col span="23" offset="1" :narrow-pc="{span:12, offset:12}">
+			<div class="demo"></div>
+		</y-col>
+  </y-row>
   </div>
 
 </template>
 
 <script>
-import YPager from './pagination/pager.vue'
-import YButton from './button/button'
-import YInput from './input/input'
+import YRow from './grid/row'
+import YCol from './grid/col'
 
 export default {
   name: "demo",
   components: {
-    YPager, YInput, YButton
+    YRow, YCol
   },
   data() {
     return {
-      currentPage: 1,
-      message: '双向绑定'
+
     }
   },
   methods: {
-        inputChange(e) {
-            alert(e)
-        }
+
   }
 };
 </script>
@@ -50,4 +35,8 @@ export default {
 html {
   font-size: 14px;
 }
+  .demo {
+    background: #409EFF;
+    height: 36px;
+  }
 </style>

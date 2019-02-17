@@ -12,7 +12,10 @@ module.exports = {
                 children: [
                     '/components/icon',
                     '/components/button',
-                    '/components/input'
+                    '/components/input',
+                    '/components/grid',
+                    '/components/layout',
+                    '/components/toast',
                 ]
             }
             
