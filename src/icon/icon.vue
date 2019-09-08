@@ -1,12 +1,27 @@
 <template>
-  <svg class="y-icon"><use :xlink:href="`#i-${name}`"></use></svg>
+  <svg 
+    class="y-icon" 
+    :style="`fill: ${color}; font-size: ${size}px`">
+    <use :xlink:href="`#i-${name}`"></use>
+  </svg>
 </template>
 
 <script>
 import "./svg";
 export default {
   name: "ElementIcon",
-  props: ["name"]
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    color: {
+      type: String
+    },
+    size: {
+      type: String
+    }
+  }
 };
 </script>
 
