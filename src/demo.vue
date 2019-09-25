@@ -1,12 +1,6 @@
 <template>
   <div style="padding: 20px">
-      <y-icon name="settings" color="red" size="150"></y-icon>
-      <y-collapse>
-        <y-collapse-item title="标题一">内容一</y-collapse-item>
-        <y-collapse-item title="标题二">内容二</y-collapse-item>
-        <y-collapse-item title="标题三">内容三</y-collapse-item>
-      </y-collapse>
-      <y-button>anniu</y-button>
+    <y-table :columns="columns" :dataSource="dataSource"></y-table>
   </div>
 
 </template>
@@ -14,19 +8,37 @@
 <script>
 import YIcon from './icon/icon'
 import YButton from './button/button'
-import YCollapse from './collapse/collapse'
-import YCollapseItem from './collapse/collapse-item'
+import YTable from './table/table'
 
 export default {
   name: "demo",
   components: {
     YIcon,
     YButton,
-    YCollapse,YCollapseItem
+    YTable
   },
-  data() {
+  data () {
     return {
-selected: 'sports'
+      columns: [
+        {
+          text: '姓名',
+          field: 'name'
+        },
+        {
+          text: '分数',
+          field: 'score'
+        }
+      ],
+      dataSource: [
+        {
+          name: '张三',
+          score: '89'
+        },
+        {
+          name: '李四',
+          score: '100'
+        }
+      ]
     }
   },
   methods: {
