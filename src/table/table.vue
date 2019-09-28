@@ -3,6 +3,7 @@
 		<table class="y-table" :class="{border, compact, striped: striped}">
 			<thead>
 				<tr>
+					<th><input type="checkbox" /></th>
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
@@ -12,6 +13,7 @@
 
 			<tbody>
 				<tr v-for="(item, index) in dataSource" :key="item.id">
+					<td><input type="checkbox" @change="onChangeItem(item, index, $event)" /></td>
 					<td v-if="isOrder">{{ index + 1 }}</td>
 					<template v-for="column in columns">
 						<td :key="column.field">
@@ -51,6 +53,14 @@ export default {
 		striped: {
 			type: Boolean,
 			default: true
+		}
+	},
+	methods: {
+		onChangeItem(item, index, e) {
+			const { checked } = e.target
+			console.log(checked)
+			// 向父组件触发事件
+			this.$emit('changeItem', {selected: checked, item, index})
 		}
 	}
 }

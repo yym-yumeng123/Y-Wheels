@@ -1,6 +1,9 @@
 <template>
   <div style="padding: 20px">
-    <y-table :columns="columns" :dataSource="dataSource" isOrder border></y-table>
+		{{selectedList}}
+    <y-table :columns="columns" :dataSource="dataSource"
+			@changeItem="x"
+		></y-table>
   </div>
 
 </template>
@@ -19,6 +22,7 @@ export default {
   },
   data () {
     return {
+			selectedList: [],
       columns: [
         {
           text: '姓名',
@@ -64,7 +68,16 @@ export default {
     }
   },
   methods: {
-
+		x(options) {
+			const { selected, item, index } = options
+			console.log(options)
+			if(selected) {
+				this.selectedList.push(item)
+			} else {
+				const index = this.selectedList.indexOf(item)
+				this.selectedList.splice(index, 1)
+			}
+		}
   }
 };
 </script>
