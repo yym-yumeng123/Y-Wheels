@@ -1,6 +1,6 @@
 <template>
 	<div class="y-table-wrapper">
-		<table class="y-table">
+		<table class="y-table" :class={border}>
 			<thead>
 				<tr>
 					<th v-if="isOrder">序号</th>
@@ -39,6 +39,10 @@ export default {
 		isOrder: {
 			type: Boolean,
 			default: false
+		},
+		border: {
+			type: Boolean,
+			default: false
 		}
 	}
 }
@@ -54,6 +58,12 @@ $grey: darken($grey, 20%);
 		border-collapse: collapse;
 		// 规定相邻单元的边框之间的距离
 		border-spacing: 0;
+		&.border {
+			border: 1px solid $grey;
+			th, td {
+				border: 1px solid $grey;
+			}
+		}
 		th, td {
 			padding: 8px;
 			text-align: left;
