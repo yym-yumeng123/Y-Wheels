@@ -1,6 +1,6 @@
 <template>
 	<div class="y-table-wrapper">
-		<table class="y-table" :class="{border, compact}">
+		<table class="y-table" :class="{border, compact, striped: striped}">
 			<thead>
 				<tr>
 					<th v-if="isOrder">序号</th>
@@ -47,6 +47,10 @@ export default {
 		compact: {
 			type: Boolean,
 			default: false
+		},
+		striped: {
+			type: Boolean,
+			default: true
 		}
 	}
 }
@@ -78,13 +82,15 @@ $grey: darken($grey, 20%);
 			text-align: left;
 			border-bottom: 1px solid $grey;
 		}
-		tbody {
-			> tr {
-				&:nth-child(odd) {
-					background: #fff;
-				}
-				&:nth-child(even) {
-					background: $grey
+		&.striped {
+			tbody {
+				> tr {
+					&:nth-child(odd) {
+						background: #fff;
+					}
+					&:nth-child(even) {
+						background: #eee;
+					}
 				}
 			}
 		}

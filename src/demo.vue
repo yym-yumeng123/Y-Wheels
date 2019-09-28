@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px">
-    <y-table :columns="columns" :dataSource="dataSource" isOrder></y-table>
+    <y-table :columns="columns" :dataSource="dataSource" isOrder border></y-table>
   </div>
 
 </template>
