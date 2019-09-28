@@ -3,7 +3,7 @@
 		<table class="y-table">
 			<thead>
 				<tr>
-					<th>#</th>
+					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
 					</th>
@@ -12,7 +12,7 @@
 
 			<tbody>
 				<tr v-for="(item, index) in dataSource" :key="item.id">
-					<td>{{ index + 1 }}</td>
+					<td v-if="isOrder">{{ index + 1 }}</td>
 					<template v-for="column in columns">
 						<td :key="column.field">
 							{{ item[column.field] }}
@@ -35,6 +35,10 @@ export default {
 		dataSource: {
 			type: Array,
 			required: true
+		},
+		isOrder: {
+			type: Boolean,
+			default: false
 		}
 	}
 }
