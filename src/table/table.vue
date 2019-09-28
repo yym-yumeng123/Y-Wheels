@@ -1,6 +1,6 @@
 <template>
 	<div class="y-table-wrapper">
-		<table class="y-table" :class={border}>
+		<table class="y-table" :class="{border, compact}">
 			<thead>
 				<tr>
 					<th v-if="isOrder">序号</th>
@@ -43,6 +43,10 @@ export default {
 		border: {
 			type: Boolean,
 			default: false
+		},
+		compact: {
+			type: Boolean,
+			default: false
 		}
 	}
 }
@@ -62,6 +66,11 @@ $grey: darken($grey, 20%);
 			border: 1px solid $grey;
 			th, td {
 				border: 1px solid $grey;
+			}
+		}
+		&.compact {
+			th, td {
+				padding: 4px;
 			}
 		}
 		th, td {
