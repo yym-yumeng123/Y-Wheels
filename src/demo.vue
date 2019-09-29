@@ -35,32 +35,32 @@ export default {
       ],
       dataSource: [
         {
-					id: 1,
+					id: "1",
           name: '张三',
           score: '89'
         },
         {
-					id: 2,
+					id: "2",
           name: '李四',
           score: '100'
         },
         {
-					id: 3,
+					id: "3",
           name: '王二',
           score: '1007'
         },
         {
-					id: 4,
+					id: "4",
           name: '掌柜',
           score: '160'
         },
         {
-					id: 5,
+					id: "5",
           name: '小红',
           score: '100'
         },
         {
-					id: 6,
+					id: "6",
           name: '部门',
           score: '100'
         },

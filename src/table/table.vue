@@ -16,7 +16,7 @@
 					<td>
 						<input type="checkbox" 
 							@change="onChangeItem(item, index, $event)" 
-							:checked="selectedItems.filter(i => i.id === item.id).length > 0"
+							:checked="isSelectedItems(item)"
 						/>
 					</td>
 					<td v-if="isOrder">{{ index + 1 }}</td>
@@ -84,6 +84,9 @@ export default {
 		onChangeAllItems(e) {
 			const { checked } = e.target
 			this.$emit('update:selectedItems', checked ? this.dataSource : [])
+		},
+		isSelectedItems(item) {
+			return this.selectedItems.filter(i => i.id === item.id).length > 0
 		}
 	}
 }
