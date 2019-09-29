@@ -3,7 +3,7 @@
 		<table class="y-table" :class="{border, compact, striped: striped}">
 			<thead>
 				<tr>
-					<th><input type="checkbox" /></th>
+					<th><input type="checkbox" @change="onChangeAllItems" /></th>
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
@@ -13,7 +13,12 @@
 
 			<tbody>
 				<tr v-for="(item, index) in dataSource" :key="item.id">
-					<td><input type="checkbox" @change="onChangeItem(item, index, $event)" /></td>
+					<td>
+						<input type="checkbox" 
+							@change="onChangeItem(item, index, $event)" 
+							:checked="selectedItems.filter(i => i.id === item.id).length > 0"
+						/>
+					</td>
 					<td v-if="isOrder">{{ index + 1 }}</td>
 					<template v-for="column in columns">
 						<td :key="column.field">
@@ -36,7 +41,15 @@ export default {
 		},
 		dataSource: {
 			type: Array,
-			required: true
+			required: true,
+			validator (array) {
+				return array.filter(item => item.id === undefined).length > 0 ? true : false
+			}
+		},
+		// 如果直接 [], 有多个会共用数组
+		selectedItems: {
+			type: Array,
+			default: () => []
 		},
 		isOrder: {
 			type: Boolean,
@@ -58,9 +71,19 @@ export default {
 	methods: {
 		onChangeItem(item, index, e) {
 			const { checked } = e.target
-			console.log(checked)
-			// 向父组件触发事件
-			this.$emit('changeItem', {selected: checked, item, index})
+			// props 数据不能直接改变
+			const copy = JSON.parse(JSON.stringify(this.selectedItems))
+			if(checked) {
+				copy.push(item)
+			} else {
+				const index = copy.indexof(item)
+				copy.splice(index, 1)
+			}
+			this.$emit('update:selectedItems', copy)
+		},
+		onChangeAllItems(e) {
+			const { checked } = e.target
+			this.$emit('update:selectedItems', checked ? this.dataSource : [])
 		}
 	}
 }
