@@ -3,7 +3,7 @@
 		<table class="y-table" :class="{border, compact, striped: striped}">
 			<thead>
 				<tr>
-					<th><input type="checkbox" @change="onChangeAllItems" /></th>
+					<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" /></th>
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
@@ -68,6 +68,17 @@ export default {
 			default: true
 		}
 	},
+	watch: {
+		selectedItems() {
+			if(this.selectedItems.length === this.dataSource.length) {
+				this.$refs.allChecked.indeterminate = false
+			} else if(this.selectedItems.length === 0) {
+				this.$refs.allChecked.indeterminate = false
+			} else {
+				this.$refs.allChecked.indeterminate = true
+			}
+		}
+	},
 	methods: {
 		onChangeItem(item, index, e) {
 			const { checked } = e.target
@@ -76,7 +87,7 @@ export default {
 			if(checked) {
 				copy.push(item)
 			} else {
-				const index = copy.indexof(item)
+				const index = copy.indexOf(item)
 				copy.splice(index, 1)
 			}
 			this.$emit('update:selectedItems', copy)
