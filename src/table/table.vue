@@ -43,7 +43,7 @@ export default {
 			type: Array,
 			required: true,
 			validator (array) {
-				return array.filter(item => item.id === undefined).length > 0 ? true : false
+				return !(array.filter(item => item.id === undefined).length > 0)
 			}
 		},
 		// 如果直接 [], 有多个会共用数组
@@ -72,8 +72,10 @@ export default {
 		selectedItems() {
 			if(this.selectedItems.length === this.dataSource.length) {
 				this.$refs.allChecked.indeterminate = false
+				this.$refs.allChecked.checked = true
 			} else if(this.selectedItems.length === 0) {
 				this.$refs.allChecked.indeterminate = false
+				this.$refs.allChecked.checked = false
 			} else {
 				this.$refs.allChecked.indeterminate = true
 			}
@@ -83,12 +85,16 @@ export default {
 		onChangeItem(item, index, e) {
 			const { checked } = e.target
 			// props 数据不能直接改变
-			const copy = JSON.parse(JSON.stringify(this.selectedItems))
+			let copy = JSON.parse(JSON.stringify(this.selectedItems))
 			if(checked) {
 				copy.push(item)
 			} else {
-				const index = copy.indexOf(item)
-				copy.splice(index, 1)
+				// 得不到 index
+				// const index = copy.indexOf(item)
+				// console.log(index, 'index')
+
+				copy = copy.filter(i => i.id !== item.id )
+				// copy.splice(index, 1)
 			}
 			this.$emit('update:selectedItems', copy)
 		},
