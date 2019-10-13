@@ -3,7 +3,7 @@
 		<table class="y-table" :class="{border, compact, striped: striped}">
 			<thead>
 				<tr>
-					<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" /></th>
+					<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" /></th>
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
@@ -72,13 +72,31 @@ export default {
 		selectedItems() {
 			if(this.selectedItems.length === this.dataSource.length) {
 				this.$refs.allChecked.indeterminate = false
-				this.$refs.allChecked.checked = true
+				// this.$refs.allChecked.checked = true
 			} else if(this.selectedItems.length === 0) {
 				this.$refs.allChecked.indeterminate = false
-				this.$refs.allChecked.checked = false
+				// this.$refs.allChecked.checked = false
 			} else {
 				this.$refs.allChecked.indeterminate = true
 			}
+		}
+	},
+	computed: {
+		areAllItemsSelected() {
+			// 字典序
+			const a = this.dataSource.map(item => item.id).sort()
+			const b = this.selectedItems.map(item => item.id).sort()
+
+			if(a.length !== b.length) return false
+			let equal = true
+			for(let i = 0; i < a.length; i++) {
+				// 只要有一个不相等, 就等于 false
+				if(a[i] !== b[i]) {
+					equal = false
+					break
+				}
+			}
+			return equal
 		}
 	},
 	methods: {
