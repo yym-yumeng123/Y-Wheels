@@ -2,10 +2,13 @@
   <div style="padding: 20px">
 		{{selectedList}}
     <y-table :columns="columns" :dataSource="dataSource"
+			:orderBy.sync="orderBy"
 			:selectedItems.sync="selectedList"
+			
+			@update:orderBy="x"
 		></y-table>
   </div>
-
+	<!-- 排序交给后端来做 -->
 </template>
 
 <script>
@@ -32,7 +35,11 @@ export default {
           text: '分数',
           field: 'score'
         }
-      ],
+			],
+			orderBy: {  // true 开启排序, 但不确定 asc desc
+				name: true,
+				score: 'asc'
+			},
       dataSource: [
         {
 					id: "1",
@@ -68,7 +75,9 @@ export default {
     }
   },
   methods: {
-
+		x() {
+			this.dataSource = this.dataSource.sort((a,b) => a.score - b.score)
+		}
   }
 };
 </script>

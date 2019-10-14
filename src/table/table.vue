@@ -7,9 +7,15 @@
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
-						<span class="y-table-sorter">
-							<span>&lt;</span>
-							<span>&gt;</span>
+						<span v-if="column.field in orderBy" class="y-table-sorter"
+							@click="changeOrderBy(column.field)"
+						>
+							<span 
+								:class="{active: orderBy[column.field] === 'asc'}"
+							>&lt;</span>
+							<span 
+								:class="{active: orderBy[column.field] === 'desc'}"
+							>&gt;</span>
 						</span>
 					</th>
 				</tr>
@@ -39,6 +45,10 @@
 export default {
 	name: 'YTable',
 	props: {
+		orderBy: {
+			type: Object,
+			default: () => ({}),
+		},
 		columns: {
 			type: Array,
 			required: true
@@ -126,8 +136,24 @@ export default {
 		},
 		isSelectedItems(item) {
 			return this.selectedItems.filter(i => i.id === item.id).length > 0
+		},
+		// 排序改变方法
+		changeOrderBy(key) {
+			// 不直接修改. 拷贝
+			const copy = JSON.parse(JSON.stringify(this.orderBy))
+			let oldValue = copy[key]
+			if(oldValue === 'asc') {
+				copy[key] = 'desc'
+			} else if(oldValue === 'desc') {
+				copy[key] = false
+			} else {
+				copy[key] = 'asc'
+			}
+			// 触发事件
+			this.$emit('update:orderBy', copy)
 		}
-	}
+	},
+
 }
 </script>
 
@@ -182,6 +208,9 @@ $grey: darken($grey, 20%);
 			height: 8px;
 			transform: rotate(90deg);
 			color: $grey;
+		}
+		> .active {
+			color: #171717;
 		}
 	}
 }
