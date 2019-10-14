@@ -7,6 +7,10 @@
 					<th v-if="isOrder">序号</th>
 					<th v-for="column in columns" :key="column.filed">
 						{{ column.text }}
+						<span class="y-table-sorter">
+							<span>&lt;</span>
+							<span>&gt;</span>
+						</span>
 					</th>
 				</tr>
 			</thead>
@@ -164,6 +168,20 @@ $grey: darken($grey, 20%);
 					}
 				}
 			}
+		}
+	}
+
+	.y-table-sorter {
+		display: inline-flex;
+		flex-direction: column;
+		margin-left: 8px;
+		cursor: pointer;
+		> span {
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			transform: rotate(90deg);
+			color: $grey;
 		}
 	}
 }
