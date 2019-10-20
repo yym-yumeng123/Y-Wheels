@@ -1,12 +1,14 @@
 <template>
 	<div class="y-table-wrapper" ref="wrapper">
-		<div :style="{height, overflow: 'auto'}">
+		<div :style="{height: `${height}px`, overflow: 'auto'}" ref="tableOut">
 			<table class="y-table" :class="{border, compact, striped: striped}" ref="table">
 				<thead>
 					<tr>
-						<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" /></th>
-						<th v-if="isOrder">序号</th>
-						<th v-for="column in columns" :key="column.filed">
+						<th :style="{width: '50px'}">
+							<input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" />
+						</th>
+						<th :style="{width: '50px'}" v-if="isOrder">序号</th>
+						<th v-for="column in columns" :key="column.filed" :style="{width: `${column.width}px`}">
 							{{ column.text }}
 							<span v-if="column.field in orderBy" class="y-table-sorter"
 								@click="changeOrderBy(column.field)"
@@ -24,15 +26,15 @@
 
 				<tbody>
 					<tr v-for="(item, index) in dataSource" :key="item.id">
-						<td>
+						<td :style="{width: '50px'}">
 							<input type="checkbox" 
 								@change="onChangeItem(item, index, $event)" 
 								:checked="isSelectedItems(item)"
 							/>
 						</td>
-						<td v-if="isOrder">{{ index + 1 }}</td>
+						<td :style="{width: '50px'}" v-if="isOrder">{{ index + 1 }}</td>
 						<template v-for="column in columns">
-							<td :key="column.field">
+							<td :key="column.field" :style="{width: `${column.width}px`}">
 								{{ item[column.field] }}
 							</td>
 						</template>
@@ -55,7 +57,7 @@ export default {
 	},
 	props: {
 		height: {
-			type: [Number, String]
+			type: Number
 		},
 		orderBy: {
 			type: Object,
@@ -100,19 +102,25 @@ export default {
 	},
 	mounted() {
 		// clone 一份 table
-		const table = this.$refs.table
-		const dupTable = table.cloneNode(true)
+		// const table = this.$refs.table
+		const dupTable = this.$refs.table.cloneNode(false)
 		this.dupTable = dupTable
 		dupTable.classList.add('y-table-dupTable')
+
+		// 把 真是 table head 放到 复制的 table里
+		const tHead = this.$refs.table.children[0]
+		const { height } = tHead.getBoundingClientRect()
+		this.dupTable.appendChild(tHead)
+		this.$refs.table.style.marginTop = height + 'px'
+		// console.log(this.height, height, '11')
+		// this.$refs.tableOut.style.height = this.height - height + 'px'
+
+		dupTable.appendChild(tHead)
 		this.$refs.wrapper.appendChild(dupTable)
 
-		this.updateHeadersWidth()
-		// 视窗变化
-		this.onWindowResize =  () => this.updateHeadersWidth()
-		window.addEventListener('resize', this.onWindowResize())
 	},
 	beforeDestroy() {
-		window.removeEventListener('resize', this.onWindowResize())
+		// window.removeEventListener('resize', this.onWindowResize())
 		this.dupTable.remove()
 	},
 	watch: {
@@ -147,28 +155,28 @@ export default {
 		}
 	},
 	methods: {
-		updateHeadersWidth() {
-			const dupTable = this.dupTable
-			const tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
-			let dupTableHeader
+		// updateHeadersWidth() {
+		// 	const dupTable = this.dupTable
+		// 	const tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
+		// 	let dupTableHeader
 
-			// 去除 tbody
-			Array.from(dupTable.children).map( node => {
-				// console.log(node.tagName)
-				if(node.tagName.toLowerCase() !== 'thead') {
-					node.remove()
-				} else {
-					dupTableHeader = node
-				}
-			})
+		// 	// 去除 tbody
+		// 	Array.from(dupTable.children).map( node => {
+		// 		// console.log(node.tagName)
+		// 		if(node.tagName.toLowerCase() !== 'thead') {
+		// 			node.remove()
+		// 		} else {
+		// 			dupTableHeader = node
+		// 		}
+		// 	})
 
-			// 设置 thead th 宽度
-			Array.from(tableHeader.children[0].children).map((node, i) => {
-				const { width } = node.getBoundingClientRect()
-				console.log(width)
-				dupTableHeader.children[0].children[i].style.width = width + 'px'
-			})
-		},
+		// 	// 设置 thead th 宽度
+		// 	Array.from(tableHeader.children[0].children).map((node, i) => {
+		// 		const { width } = node.getBoundingClientRect()
+		// 		console.log(width)
+		// 		dupTableHeader.children[0].children[i].style.width = width + 'px'
+		// 	})
+		// },
 		onChangeItem(item, index, e) {
 			const { checked } = e.target
 			// props 数据不能直接改变

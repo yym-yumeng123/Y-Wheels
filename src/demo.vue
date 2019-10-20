@@ -8,7 +8,7 @@
 			@update:orderBy="x"
 			border
 
-			height="200px"
+			:height="200"
 		></y-table>
   </div>
 	<!-- 排序交给后端来做 -->
@@ -32,7 +32,8 @@ export default {
       columns: [
         {
           text: '姓名',
-          field: 'name'
+					field: 'name',
+					width: 250
         },
         {
           text: '分数',
