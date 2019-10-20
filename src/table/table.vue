@@ -1,44 +1,45 @@
 <template>
-	<div class="y-table-wrapper" :style={height} ref="wrapper">
-		<table class="y-table" :class="{border, compact, striped: striped}" ref="table">
-			<thead>
-				<tr>
-					<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" /></th>
-					<th v-if="isOrder">序号</th>
-					<th v-for="column in columns" :key="column.filed">
-						{{ column.text }}
-						<span v-if="column.field in orderBy" class="y-table-sorter"
-							@click="changeOrderBy(column.field)"
-						>
-							<span 
-								:class="{active: orderBy[column.field] === 'asc'}"
-							>&lt;</span>
-							<span 
-								:class="{active: orderBy[column.field] === 'desc'}"
-							>&gt;</span>
-						</span>
-					</th>
-				</tr>
-			</thead>
+	<div class="y-table-wrapper" ref="wrapper">
+		<div :style="{height, overflow: 'auto'}">
+			<table class="y-table" :class="{border, compact, striped: striped}" ref="table">
+				<thead>
+					<tr>
+						<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" /></th>
+						<th v-if="isOrder">序号</th>
+						<th v-for="column in columns" :key="column.filed">
+							{{ column.text }}
+							<span v-if="column.field in orderBy" class="y-table-sorter"
+								@click="changeOrderBy(column.field)"
+							>
+								<span 
+									:class="{active: orderBy[column.field] === 'asc'}"
+								>&lt;</span>
+								<span 
+									:class="{active: orderBy[column.field] === 'desc'}"
+								>&gt;</span>
+							</span>
+						</th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<tr v-for="(item, index) in dataSource" :key="item.id">
-					<td>
-						<input type="checkbox" 
-							@change="onChangeItem(item, index, $event)" 
-							:checked="isSelectedItems(item)"
-						/>
-					</td>
-					<td v-if="isOrder">{{ index + 1 }}</td>
-					<template v-for="column in columns">
-						<td :key="column.field">
-							{{ item[column.field] }}
+				<tbody>
+					<tr v-for="(item, index) in dataSource" :key="item.id">
+						<td>
+							<input type="checkbox" 
+								@change="onChangeItem(item, index, $event)" 
+								:checked="isSelectedItems(item)"
+							/>
 						</td>
-					</template>
-				</tr>
-			</tbody>
-		</table>
-
+						<td v-if="isOrder">{{ index + 1 }}</td>
+						<template v-for="column in columns">
+							<td :key="column.field">
+								{{ item[column.field] }}
+							</td>
+						</template>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<div class="y-table-loading" v-if="loading">
 			<y-icon name="loading"></y-icon>
 		</div>
@@ -99,15 +100,30 @@ export default {
 	},
 	mounted() {
 		// clone 一份 table
-		const dupTable = this.$refs.table.cloneNode(true)
+		const table = this.$refs.table
+		const dupTable = table.cloneNode(true)
 		dupTable.classList.add('y-table-dupTable')
+
+		const tableHeader = Array.from(table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
+		console.log(tableHeader, 'table....')
+		let dupTableHeader
+
+		// 去除 tbody
 		Array.from(dupTable.children).map( node => {
 			// console.log(node.tagName)
 			if(node.tagName.toLowerCase() !== 'thead') {
 				node.remove()
+			} else {
+				dupTableHeader = node
 			}
 		})
-		console.log(dupTable)
+
+		// 设置 thead th 宽度
+		Array.from(tableHeader.children[0].children).map((node, i) => {
+			const { width } = node.getBoundingClientRect()
+			console.log(width)
+			dupTableHeader.children[0].children[i].style.width = width + 'px'
+		})
 		this.$refs.wrapper.appendChild(dupTable)
 	},
 	watch: {
@@ -189,7 +205,6 @@ export default {
 @import 'var.scss';
 $grey: darken($grey, 20%);
 .y-table-wrapper {
-	overflow: auto;
 	.y-table {
 		width: 100%;
 		// 边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性。
@@ -262,10 +277,11 @@ $grey: darken($grey, 20%);
 		}
 	}
 	.y-table-dupTable {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
+		background: #fff;
 	}
 }
 </style>

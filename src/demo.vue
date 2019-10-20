@@ -6,6 +6,7 @@
 			:selectedItems.sync="selectedList"
 			:loading="loading"
 			@update:orderBy="x"
+			border
 
 			height="200px"
 		></y-table>
