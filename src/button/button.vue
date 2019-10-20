@@ -96,7 +96,7 @@ export default {
       }
     }
     .loading {
-      animation: spin 1s linear infinite;
+			@include spin;
     }
   }
 </style>

@@ -6,6 +6,8 @@
 			:selectedItems.sync="selectedList"
 			:loading="loading"
 			@update:orderBy="x"
+
+			height="200px"
 		></y-table>
   </div>
 	<!-- 排序交给后端来做 -->
@@ -69,6 +71,16 @@ export default {
         },
         {
 					id: "6",
+          name: '部门',
+          score: '100'
+        },
+        {
+					id: "7",
+          name: '小红',
+          score: '100'
+        },
+        {
+					id: "8",
           name: '部门',
           score: '100'
         },

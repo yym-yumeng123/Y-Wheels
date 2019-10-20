@@ -1,6 +1,6 @@
 <template>
-	<div class="y-table-wrapper">
-		<table class="y-table" :class="{border, compact, striped: striped}">
+	<div class="y-table-wrapper" :style={height} ref="wrapper">
+		<table class="y-table" :class="{border, compact, striped: striped}" ref="table">
 			<thead>
 				<tr>
 					<th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" /></th>
@@ -53,6 +53,9 @@ export default {
 		YIcon
 	},
 	props: {
+		height: {
+			type: [Number, String]
+		},
 		orderBy: {
 			type: Object,
 			default: () => ({}),
@@ -93,6 +96,19 @@ export default {
 			type: Boolean,
 			default: true
 		}
+	},
+	mounted() {
+		// clone 一份 table
+		const dupTable = this.$refs.table.cloneNode(true)
+		dupTable.classList.add('y-table-dupTable')
+		Array.from(dupTable.children).map( node => {
+			// console.log(node.tagName)
+			if(node.tagName.toLowerCase() !== 'thead') {
+				node.remove()
+			}
+		})
+		console.log(dupTable)
+		this.$refs.wrapper.appendChild(dupTable)
 	},
 	watch: {
 		selectedItems() {
@@ -173,6 +189,7 @@ export default {
 @import 'var.scss';
 $grey: darken($grey, 20%);
 .y-table-wrapper {
+	overflow: auto;
 	.y-table {
 		width: 100%;
 		// 边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性。
@@ -243,6 +260,12 @@ $grey: darken($grey, 20%);
 			height: 50px;
 			@include spin;
 		}
+	}
+	.y-table-dupTable {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
 	}
 }
 </style>
