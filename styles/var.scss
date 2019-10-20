@@ -29,3 +29,7 @@ $grey:#eee;
         transform: rotate(360deg);
     }
 }
+
+@mixin spin {
+	animation: spin 1s linear infinite;
+}

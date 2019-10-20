@@ -4,7 +4,7 @@
     <y-table :columns="columns" :dataSource="dataSource"
 			:orderBy.sync="orderBy"
 			:selectedItems.sync="selectedList"
-			
+			:loading="loading"
 			@update:orderBy="x"
 		></y-table>
   </div>
@@ -40,6 +40,7 @@ export default {
 				name: true,
 				score: 'asc'
 			},
+			loading: false,
       dataSource: [
         {
 					id: "1",
@@ -76,7 +77,11 @@ export default {
   },
   methods: {
 		x() {
-			this.dataSource = this.dataSource.sort((a,b) => a.score - b.score)
+			this.loading = true
+			setTimeout(() => {
+				this.dataSource = this.dataSource.sort((a,b) => a.score - b.score)
+				this.loading = false
+			}, 1000)
 		}
   }
 };

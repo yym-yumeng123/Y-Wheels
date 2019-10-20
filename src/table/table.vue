@@ -38,12 +38,20 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="y-table-loading" v-if="loading">
+			<y-icon name="loading"></y-icon>
+		</div>
 	</div>
 </template>
 
 <script>
+import YIcon from '../icon/icon.vue'
 export default {
 	name: 'YTable',
+	components: {
+		YIcon
+	},
 	props: {
 		orderBy: {
 			type: Object,
@@ -59,6 +67,10 @@ export default {
 			validator (array) {
 				return !(array.filter(item => item.id === undefined).length > 0)
 			}
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		},
 		// 如果直接 [], 有多个会共用数组
 		selectedItems: {
@@ -211,6 +223,25 @@ $grey: darken($grey, 20%);
 		}
 		> .active {
 			color: #171717;
+		}
+	}
+	position: relative;
+	.y-table-loading {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, .1);
+		svg {
+			width: 50px;
+			height: 50px;
+			@include spin;
 		}
 	}
 }
