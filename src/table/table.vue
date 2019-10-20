@@ -102,29 +102,18 @@ export default {
 		// clone 一份 table
 		const table = this.$refs.table
 		const dupTable = table.cloneNode(true)
+		this.dupTable = dupTable
 		dupTable.classList.add('y-table-dupTable')
-
-		const tableHeader = Array.from(table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
-		console.log(tableHeader, 'table....')
-		let dupTableHeader
-
-		// 去除 tbody
-		Array.from(dupTable.children).map( node => {
-			// console.log(node.tagName)
-			if(node.tagName.toLowerCase() !== 'thead') {
-				node.remove()
-			} else {
-				dupTableHeader = node
-			}
-		})
-
-		// 设置 thead th 宽度
-		Array.from(tableHeader.children[0].children).map((node, i) => {
-			const { width } = node.getBoundingClientRect()
-			console.log(width)
-			dupTableHeader.children[0].children[i].style.width = width + 'px'
-		})
 		this.$refs.wrapper.appendChild(dupTable)
+
+		this.updateHeadersWidth()
+		// 视窗变化
+		this.onWindowResize =  () => this.updateHeadersWidth()
+		window.addEventListener('resize', this.onWindowResize())
+	},
+	beforeDestroy() {
+		window.removeEventListener('resize', this.onWindowResize())
+		this.dupTable.remove()
 	},
 	watch: {
 		selectedItems() {
@@ -158,6 +147,28 @@ export default {
 		}
 	},
 	methods: {
+		updateHeadersWidth() {
+			const dupTable = this.dupTable
+			const tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
+			let dupTableHeader
+
+			// 去除 tbody
+			Array.from(dupTable.children).map( node => {
+				// console.log(node.tagName)
+				if(node.tagName.toLowerCase() !== 'thead') {
+					node.remove()
+				} else {
+					dupTableHeader = node
+				}
+			})
+
+			// 设置 thead th 宽度
+			Array.from(tableHeader.children[0].children).map((node, i) => {
+				const { width } = node.getBoundingClientRect()
+				console.log(width)
+				dupTableHeader.children[0].children[i].style.width = width + 'px'
+			})
+		},
 		onChangeItem(item, index, e) {
 			const { checked } = e.target
 			// props 数据不能直接改变
