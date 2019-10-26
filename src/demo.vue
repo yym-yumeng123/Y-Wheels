@@ -8,7 +8,7 @@
 			@update:orderBy="x"
 			border
 
-			:expand-field="description"
+			expand-field="description"
 
 			:height="200"
 		></y-table>

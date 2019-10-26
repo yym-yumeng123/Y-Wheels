@@ -40,8 +40,10 @@
 								</td>
 							</template>
 						</tr>
-						<tr :key="item.id">
-							{{ item.description }}
+						<tr :key="`${item.id}-expand`">
+							<td :colspan="columns.length + 1">
+								{{ item[expandField] }}
+							</td>
 						</tr>
 					</template>
 				</tbody>
@@ -61,6 +63,9 @@ export default {
 		YIcon
 	},
 	props: {
+		expandField: {
+			type: String
+		},
 		height: {
 			type: Number
 		},
