@@ -8,7 +8,8 @@
 			@update:orderBy="x"
 			border
 
-			expand-field="description"
+			checkable
+			expend-field="description"
 
 			:height="200"
 		></y-table>

@@ -4,10 +4,8 @@
 			<table class="y-table" :class="{border, compact, striped: striped}" ref="table">
 				<thead>
 					<tr>
-						<th :style="{width: '50px'}">
-							可展开
-						</th>
-						<th :style="{width: '50px'}">
+						<th v-if="expendField" :style="{width: '50px'}"></th>
+						<th v-if="checkable" :style="{width: '50px'}">
 							<input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" />
 						</th>
 						<th :style="{width: '50px'}" v-if="isOrder">序号</th>
@@ -30,26 +28,26 @@
 				<tbody>
 					<template v-for="(item, index) in dataSource">
 						<tr :key="item.id">
-							<td :style="{width: '50px'}">
+							<td v-if="expendField" :style="{width: '50px'}">
 								<y-icon v-if="!inExpendedIds(item.id)" class="y-table-expendIcon" name="right" @click="expendItem(item.id)" />
 								<y-icon v-else class="y-table-expendIcon" name="down" @click="expendItem(item.id)" />
 							</td>
-							<td :style="{width: '50px'}">
+							<td v-if="checkable" :style="{width: '50px'}">
 								<input type="checkbox" 
 									@change="onChangeItem(item, index, $event)" 
 									:checked="isSelectedItems(item)"
 								/>
 							</td>
-							<td :style="{width: '50px'}" v-if="isOrder">{{ index + 2 }}</td>
+							<td :style="{width: '50px'}" v-if="isOrder">{{ index + 1 }}</td>
 							<template v-for="column in columns">
 								<td :key="column.field" :style="{width: `${column.width}px`}">
 									{{ item[column.field] }}
 								</td>
 							</template>
 						</tr>
-						<tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expand`">
-							<td :colspan="columns.length + 1">
-								{{ item[expandField] || '暂无详情' }}
+						<tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
+							<td :colspan="columns.length + expendCellColSpan">
+								{{ item[expendField] || '暂无详情' }}
 							</td>
 						</tr>
 					</template>
@@ -75,7 +73,7 @@ export default {
 		}
 	},
 	props: {
-		expandField: {
+		expendField: {
 			type: String
 		},
 		height: {
@@ -120,6 +118,11 @@ export default {
 		striped: {
 			type: Boolean,
 			default: true
+		},
+		// 是否需要 选择框
+		checkable: {
+			type: Boolean,
+			default: false
 		}
 	},
 	mounted() {
@@ -174,6 +177,13 @@ export default {
 				}
 			}
 			return equal
+		},
+		// 计算展开时 colspan
+		expendCellColSpan() {
+			let result = 0
+			if(this.expendField) result += 1
+			if(this.checkable) result += 1
+			return result
 		}
 	},
 	methods: {
