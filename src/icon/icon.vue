@@ -1,7 +1,9 @@
 <template>
   <svg 
     class="y-icon" 
-    :style="`fill: ${color}; font-size: ${size}px`">
+    :style="`fill: ${color}; font-size: ${size}px`"
+		@click="handlerIcon"
+	>
     <use :xlink:href="`#i-${name}`"></use>
   </svg>
 </template>
@@ -21,7 +23,12 @@ export default {
     size: {
       type: String
     }
-  }
+	},
+	methods: {
+		handlerIcon() {
+			this.$emit('click')
+		}
+	}
 };
 </script>
 

@@ -5,6 +5,9 @@
 				<thead>
 					<tr>
 						<th :style="{width: '50px'}">
+							可展开
+						</th>
+						<th :style="{width: '50px'}">
 							<input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected" />
 						</th>
 						<th :style="{width: '50px'}" v-if="isOrder">序号</th>
@@ -28,21 +31,25 @@
 					<template v-for="(item, index) in dataSource">
 						<tr :key="item.id">
 							<td :style="{width: '50px'}">
+								<y-icon v-if="!inExpendedIds(item.id)" class="y-table-expendIcon" name="right" @click="expendItem(item.id)" />
+								<y-icon v-else class="y-table-expendIcon" name="down" @click="expendItem(item.id)" />
+							</td>
+							<td :style="{width: '50px'}">
 								<input type="checkbox" 
 									@change="onChangeItem(item, index, $event)" 
 									:checked="isSelectedItems(item)"
 								/>
 							</td>
-							<td :style="{width: '50px'}" v-if="isOrder">{{ index + 1 }}</td>
+							<td :style="{width: '50px'}" v-if="isOrder">{{ index + 2 }}</td>
 							<template v-for="column in columns">
 								<td :key="column.field" :style="{width: `${column.width}px`}">
 									{{ item[column.field] }}
 								</td>
 							</template>
 						</tr>
-						<tr :key="`${item.id}-expand`">
+						<tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expand`">
 							<td :colspan="columns.length + 1">
-								{{ item[expandField] }}
+								{{ item[expandField] || '暂无详情' }}
 							</td>
 						</tr>
 					</template>
@@ -61,6 +68,11 @@ export default {
 	name: 'YTable',
 	components: {
 		YIcon
+	},
+	data () {
+		return {
+			expendedIds: []
+		}
 	},
 	props: {
 		expandField: {
@@ -165,6 +177,16 @@ export default {
 		}
 	},
 	methods: {
+		inExpendedIds(id) {
+			return this.expendedIds.indexOf(id) >= 0
+		},
+		expendItem(id){
+			if(this.inExpendedIds(id)) {
+				this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
+			} else {
+				this.expendedIds.push(id)
+			}
+		},
 		// updateHeadersWidth() {
 		// 	const dupTable = this.dupTable
 		// 	const tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
@@ -267,6 +289,10 @@ $grey: darken($grey, 20%);
 					}
 				}
 			}
+		}
+		&-expendIcon {
+			width: 15px;
+			height: 15px;
 		}
 	}
 
