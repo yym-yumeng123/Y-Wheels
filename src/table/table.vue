@@ -25,20 +25,25 @@
 				</thead>
 
 				<tbody>
-					<tr v-for="(item, index) in dataSource" :key="item.id">
-						<td :style="{width: '50px'}">
-							<input type="checkbox" 
-								@change="onChangeItem(item, index, $event)" 
-								:checked="isSelectedItems(item)"
-							/>
-						</td>
-						<td :style="{width: '50px'}" v-if="isOrder">{{ index + 1 }}</td>
-						<template v-for="column in columns">
-							<td :key="column.field" :style="{width: `${column.width}px`}">
-								{{ item[column.field] }}
+					<template v-for="(item, index) in dataSource">
+						<tr :key="item.id">
+							<td :style="{width: '50px'}">
+								<input type="checkbox" 
+									@change="onChangeItem(item, index, $event)" 
+									:checked="isSelectedItems(item)"
+								/>
 							</td>
-						</template>
-					</tr>
+							<td :style="{width: '50px'}" v-if="isOrder">{{ index + 1 }}</td>
+							<template v-for="column in columns">
+								<td :key="column.field" :style="{width: `${column.width}px`}">
+									{{ item[column.field] }}
+								</td>
+							</template>
+						</tr>
+						<tr :key="item.id">
+							{{ item.description }}
+						</tr>
+					</template>
 				</tbody>
 			</table>
 		</div>

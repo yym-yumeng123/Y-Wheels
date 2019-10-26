@@ -8,6 +8,8 @@
 			@update:orderBy="x"
 			border
 
+			:expand-field="description"
+
 			:height="200"
 		></y-table>
   </div>
@@ -49,12 +51,14 @@ export default {
         {
 					id: "1",
           name: '张三',
-          score: '89'
+					score: '89',
+					description: 'xxxxxxxxx'
         },
         {
 					id: "2",
           name: '李四',
-          score: '100'
+					score: '100',
+					description: 'yyyyyy'
         },
         {
 					id: "3",
