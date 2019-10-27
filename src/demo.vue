@@ -14,7 +14,6 @@
 			:height="200"
 		>
 			<template slot-scope="item">
-				{{ item }}
 				<button>编辑</button>
 				<button>查看</button>
 			</template>
@@ -48,7 +47,6 @@ export default {
         {
           text: '分数',
           field: 'score',
-					width: 400
         }
 			],
 			orderBy: {  // true 开启排序, 但不确定 asc desc

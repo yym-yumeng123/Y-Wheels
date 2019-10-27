@@ -24,7 +24,7 @@
 						</th>
 
 						<!-- 可编辑的最后一列 -->
-						<th>
+						<th v-if="$scopedSlots.default">
 						</th>
 					</tr>
 				</thead>
@@ -50,7 +50,7 @@
 							</template>
 
 							<!-- 可编辑的行 -->
-							<td>
+							<td v-if="$scopedSlots.default">
 								<slot :item="item"></slot>
 							</td>
 						</tr>
@@ -152,6 +152,9 @@ export default {
 		dupTable.appendChild(tHead)
 		this.$refs.wrapper.appendChild(dupTable)
 
+
+		// 打印 slotScoped
+		console.log(this.$scopedSlots)
 	},
 	beforeDestroy() {
 		// window.removeEventListener('resize', this.onWindowResize())
