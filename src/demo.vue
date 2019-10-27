@@ -12,7 +12,14 @@
 			expend-field="description"
 
 			:height="200"
-		></y-table>
+		>
+			<template slot-scope="item">
+				{{ item }}
+				<button>编辑</button>
+				<button>查看</button>
+			</template>
+		
+		</y-table>
   </div>
 	<!-- 排序交给后端来做 -->
 </template>
@@ -40,7 +47,8 @@ export default {
         },
         {
           text: '分数',
-          field: 'score'
+          field: 'score',
+					width: 400
         }
 			],
 			orderBy: {  // true 开启排序, 但不确定 asc desc

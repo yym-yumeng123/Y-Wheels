@@ -22,6 +22,10 @@
 								>&gt;</span>
 							</span>
 						</th>
+
+						<!-- 可编辑的最后一列 -->
+						<th>
+						</th>
 					</tr>
 				</thead>
 
@@ -44,6 +48,11 @@
 									{{ item[column.field] }}
 								</td>
 							</template>
+
+							<!-- 可编辑的行 -->
+							<td>
+								<slot :item="item"></slot>
+							</td>
 						</tr>
 						<tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
 							<td :colspan="columns.length + expendCellColSpan">
