@@ -11,15 +11,17 @@
 			checkable
 			expend-field="description"
 
-			:height="200"
+			
 		>
 			<template slot-scope="item">
 				<button>编辑</button>
 				<button>查看</button>
+				<b>删除</b>
 			</template>
 		
 		</y-table>
   </div>
+	<!-- :height="200" -->
 	<!-- 排序交给后端来做 -->
 </template>
 

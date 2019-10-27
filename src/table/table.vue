@@ -24,7 +24,7 @@
 						</th>
 
 						<!-- 可编辑的最后一列 -->
-						<th v-if="$scopedSlots.default">
+						<th ref="actionsHeader" v-if="$scopedSlots.default">
 						</th>
 					</tr>
 				</thead>
@@ -166,7 +166,12 @@ export default {
 			const borderLeft = styles.getPropertyValue('border-left-width')
 			const borderRight = styles.getPropertyValue('border-right-width')
 			console.log(paddingLeft,paddingRight, borderLeft, borderRight);
-			
+			const actionWidth = width + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
+			this.$refs.actionsHeader.style.width = actionWidth
+
+			this.$refs.actions.map(div => {
+				div.parentNode.style.width = actionWidth
+			})
 			console.log(parent, 'parent')
 			console.log(width)
 		}
