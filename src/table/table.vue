@@ -51,7 +51,9 @@
 
 							<!-- 可编辑的行 -->
 							<td v-if="$scopedSlots.default">
-								<slot :item="item"></slot>
+								<div ref="actions" style="display: inline-block">
+									<slot :item="item"></slot>
+								</div>
 							</td>
 						</tr>
 						<tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
@@ -154,7 +156,20 @@ export default {
 
 
 		// 打印 slotScoped
-		console.log(this.$scopedSlots)
+		if(this.$scopedSlots.default) {
+			const div = this.$refs.actions[0]
+			const { width } = div.getBoundingClientRect()
+			const parent = div.parentNode
+			const styles = getComputedStyle(parent)
+			const paddingLeft = styles.getPropertyValue('padding-left')
+			const paddingRight = styles.getPropertyValue('padding-right')
+			const borderLeft = styles.getPropertyValue('border-left-width')
+			const borderRight = styles.getPropertyValue('border-right-width')
+			console.log(paddingLeft,paddingRight, borderLeft, borderRight);
+			
+			console.log(parent, 'parent')
+			console.log(width)
+		}
 	},
 	beforeDestroy() {
 		// window.removeEventListener('resize', this.onWindowResize())
