@@ -9,6 +9,15 @@ export default function validator(data, rules) {
 				errors[rule.key] = { required: '必填' }
 			}
 		}
+
+		if(rule.pattern) {
+			if(rule.pattern === 'email') {
+				rule.pattern = /^.+@.+$/
+			}
+			if(rule.pattern.test(value) === false) {
+				errors[rule.key] = { pattern: '格式不正确' }
+			}
+		}
 	})
 	return errors
 }
