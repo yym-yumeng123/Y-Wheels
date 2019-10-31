@@ -74,6 +74,7 @@ describe('validator', () => {
 	})
 
 
+	// 规则判断室友顺序的 required 第一
 	it('required && pattern', () => {
 		let data = {
 			email: ''
@@ -82,6 +83,19 @@ describe('validator', () => {
 			{ key: 'email', pattern: 'email', required: true }
 		]
 		let errors = validator(data, rules)
-		expect(errors.email).to.not.exist
+		expect(errors.email.required).to.exist
+		expect(errors.email.pattern).to.not.exist
+	})
+
+	it('minLength && pattern', () => {
+		let data = {
+			email: ''
+		}
+		let rules = [
+			{ key: 'email', pattern: 'email', minLength: 6 }
+		]
+		let errors = validator(data, rules)
+		expect(errors.email.minLength).to.exist
+		expect(errors.email.pattern).to.exist
 	})
 })

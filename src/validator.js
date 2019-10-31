@@ -7,6 +7,7 @@ export default function validator(data, rules) {
 			// 如果 value 不存在
 			if(!value && value !== 0) {
 				errors[rule.key] = { required: '必填' }
+				return
 			}
 		}
 
@@ -15,9 +16,23 @@ export default function validator(data, rules) {
 				rule.pattern = /^.+@.+$/
 			}
 			if(rule.pattern.test(value) === false) {
-				errors[rule.key] = { pattern: '格式不正确' }
+				ensureObject(errors, rule.key)
+				errors[rule.key].pattern = '格式不正确'
+			}
+		}
+
+		if(rule.minLength) {
+			if(rule.minLength > value.length) {
+				ensureObject(errors, rule.key)
+				errors[rule.key].minLength = '太短'
 			}
 		}
 	})
 	return errors
+}
+
+function ensureObject(obj, key) {
+	if(typeof obj[key] !== 'object') {
+		obj[key] = {}
+	}
 }
