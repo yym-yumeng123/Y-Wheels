@@ -9,27 +9,23 @@ export default function validator(data, rules) {
 			if(error) {
 				ensureObject(errors, rule.key)
 				errors[rule.key].required = error
-				return
 			}
 		}
 
-		if(rule.pattern) {
-			let error = validator.pattern(value, rule.pattern)
-			if(error) {
-				ensureObject(errors, rule.key)
-				errors[rule.key].pattern = error
-				return
+		// 遍历 validaotors 并调用对应的函数
+		let validators = Object.keys(rule).filter(key => key !== 'key' && key !== 'required')
+		validators.forEach(validatorKey => {
+			// validatorKey 是一个验证的key
+			if(validator[validatorKey]) {
+				let error = validator[validatorKey](value, rule[validatorKey])
+				if(error) {
+					ensureObject(errors, rule.key)
+					errors[rule.key][validatorKey] = error
+				}
+			} else {
+				throw `不存在的key: ${validatorKey}`
 			}
-		}
-
-		if(rule.minLength) {
-			let error = validator.minLength(value, rule.minLength)
-			console.log(error, 'error...')
-			if(error) {
-				ensureObject(errors, rule.key)
-				errors[rule.key].minLength = error
-			}
-		}
+		})
 	})
 	return errors
 }
@@ -52,6 +48,12 @@ validator.pattern = (value, pattern) => {
 validator.minLength = (value, minLength) => {
 	if(value.length < minLength) {
 		return '太短'
+	}
+}
+
+validator.maxLength = (value, maxLength) => {
+	if(value.length > maxLength) {
+		return '太长'
 	}
 }
 
