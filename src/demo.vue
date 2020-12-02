@@ -13,13 +13,16 @@
 
 			
 		>
-			<template slot-scope="item">
+			<template>
 				<button>编辑</button>
 				<button>查看</button>
 				<b>删除</b>
 			</template>
-		
 		</y-table>
+
+		<y-date-picker></y-date-picker>
+
+
   </div>
 	<!-- :height="200" -->
 	<!-- 排序交给后端来做 -->
@@ -29,13 +32,15 @@
 import YIcon from './icon/icon'
 import YButton from './button/button'
 import YTable from './table/table'
+import YDatePicker from './Date/date-picker/date-picker'
 
 export default {
   name: "demo",
   components: {
     YIcon,
     YButton,
-    YTable
+		YTable,
+		YDatePicker
   },
   data () {
     return {
